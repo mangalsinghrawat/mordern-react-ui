@@ -1,0 +1,12 @@
+.statsItem{
+    padding: 2rem;
+        background: white;
+        border-radius: 0.25rem;
+        border-bottom: 5px solid ${(props) => props.color};
+    
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+    }

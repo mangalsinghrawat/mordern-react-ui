@@ -1,0 +1,10 @@
+.sample {
+    width: 35vw;
+}
+
+.sample-form {
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+
+}

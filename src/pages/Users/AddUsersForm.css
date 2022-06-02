@@ -1,0 +1,21 @@
+.addUser {
+    width: 700px;
+    margin: auto;
+}
+
+.userForm {
+    height: 640px;
+}
+
+.btnAddUser {
+    top: 20px;
+    left: 110px;
+    width: 400px;
+    bottom: 10px;
+}
+
+/* .formInput {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: auto;
+} */

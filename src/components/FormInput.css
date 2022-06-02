@@ -1,0 +1,17 @@
+.formInput {
+    padding: 20px;
+    display: flex;
+}
+
+label {
+    flex: 1;
+    padding-top: 8px;
+    padding-right: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.textInput {
+    width: 250px;
+}
+

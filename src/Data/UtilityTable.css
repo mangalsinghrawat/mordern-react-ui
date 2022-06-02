@@ -1,0 +1,27 @@
+.crud-component-h6 {
+    color: #1976d2 !important;
+    padding: 5px 15px !important;
+    /* background-color: #f0f0f0 !important;     */
+    font-weight: bold !important;
+    font-size: 25px !important;
+}
+
+.crud-row:hover {
+    background-color: #bdd2e9fd !important;
+    cursor: pointer !important;
+    transition: 0.3s ease-in !important;
+}
+
+.crud-table-head {
+    height: 30px !important;
+}
+
+.crud-custom-field input {
+    width: 240px !important;
+    border-radius: 15px !important;
+    padding: 10px !important;
+}
+
+.tableParent {
+    background: #fff !important;
+}
