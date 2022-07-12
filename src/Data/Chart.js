@@ -68,21 +68,21 @@ const Chart = () => {
           datasets: [
             {
               label: "Users",
-              data: [users.length, 20, 40, 30, 29, 22, 55],
+              data: [users.length, 30, 27, 32, 29, 27, 35],
               backgroundColor: ["#e9b949"],
               //   borderColor: ["black"],
               borderWidth: 1,
             },
             {
               label: "Resumes",
-              data: [110, 130, 120, 110, 150, 160, 170],
+              data: [20, 30, 50, 90, 110, 120, 150],
               backgroundColor: ["#647acb"],
               //   borderColor: ["black"],
               borderWidth: 1,
             },
             {
               label: "Portals",
-              data: [3, 5, 2, 4, 2, 6, 5],
+              data: [5, 9, 9, 12, 15, 20, 25],
               backgroundColor: ["#d66a6a"],
               //   borderColor: ["black"],
               borderWidth: 1,

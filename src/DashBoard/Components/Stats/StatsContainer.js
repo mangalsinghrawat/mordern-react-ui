@@ -4,6 +4,7 @@ import AccountBoxOutlinedIcon from "@mui/icons-material/AccountBoxOutlined";
 import FilePresentOutlinedIcon from "@mui/icons-material/FilePresentOutlined";
 import WorkOutlineOutlinedIcon from "@mui/icons-material/WorkOutlineOutlined";
 import { Users } from "../../../components/Users";
+import { ResumeJSONData } from "../../../UserDesk/Resumes/ResumeJSONData";
 
 const Wrapper = styled.section`
   display: grid;
@@ -36,7 +37,7 @@ const StatsContainer = () => {
     },
     {
       title: "Resumes",
-      count: 110,
+      count: ResumeJSONData.length,
       icon: <FilePresentOutlinedIcon />,
       color: "#647acb",
       bcg: "#e0e8f9",
@@ -46,7 +47,7 @@ const StatsContainer = () => {
     },
     {
       title: "Available Portals",
-      count: 3,
+      count: 10,
       icon: <WorkOutlineOutlinedIcon />,
       color: "#d66a6a",
       bcg: "#ffeeee",
