@@ -73,12 +73,13 @@ const Wrapper = styled.nav`
     letter-spacing: 1px;
     text-transform: capitalize;
     cursor: pointer;
+    z-index: 1;
   }
   .logo-text {
     display: none;
     color: #1976d2;
     margin: 0;
-    margin-left:-10px;
+    margin-left: -10px;
     font-size: 29px;
   }
   @media (min-width: 992px) {
@@ -131,18 +132,20 @@ const Navbar = () => {
           <MenuIcon />
         </button> */}
         <div>
-          <h3 className="logo-text">
-            BitByBit
-            <span
-              style={{
-                fontSize: "17px",
-                color: "#647acb",
-                marginLeft: "0px",
-              }}
-            >
-              Solutions
-            </span>
-          </h3>
+          <Link to="/dashboard">
+            <h3 className="logo-text">
+              BitByBit
+              <span
+                style={{
+                  fontSize: "17px",
+                  color: "#1976d2",
+                  marginLeft: "0px",
+                }}
+              >
+                Solutions
+              </span>
+            </h3>
+          </Link>
         </div>
         <div className="btn-container">
           <button
@@ -161,7 +164,7 @@ const Navbar = () => {
               className="dropdown-btn"
               //   onClick={() => dispatch(clearStore("Logging out..."))}
             >
-              <Link to="/home">Logout</Link>
+              <Link to="/login">Logout</Link>
             </button>
           </div>
         </div>

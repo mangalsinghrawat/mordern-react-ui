@@ -18,3 +18,7 @@ a {
     text-decoration: none;
     color: #1976d2;
 }
+
+.css-qfz70r-MuiFormGroup-root{
+    flex-wrap: nowrap !important; 
+}

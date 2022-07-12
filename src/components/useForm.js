@@ -1,8 +1,9 @@
 import { makeStyles } from "@material-ui/styles";
 import React, { useState } from "react";
 
-export function useForm(initialValues) {
+export function useForm(initialValues, validateOnChange = false, validate) {
   const [values, setValues] = useState(initialValues);
+  const [errors, setErrors] = useState(initialValues);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -10,12 +11,34 @@ export function useForm(initialValues) {
       ...values,
       [name]: value,
     });
+    if (validateOnChange) validate({ [name]: value });
+  };
+
+  const handleSelectChange = (e) => {
+    //   setValues(...values, e.target.value);
+
+    const { name, value } = e.target;
+    setValues({
+      ...values,
+      [name]: value,
+    });
+    if (validateOnChange) validate({ [name]: value });
+    console.log({ value }.text);
+  };
+
+  const resetForm = () => {
+    setValues(initialValues);
+    setErrors({});
   };
 
   return {
     values,
     setValues,
     handleInputChange,
+    errors,
+    setErrors,
+    resetForm,
+    handleSelectChange,
   };
 }
 
@@ -31,10 +54,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 export function Form(props) {
   const classes = useStyles();
+
+  const { children, ...other } = props;
   return (
     <div>
-      <form className={classes.root} autoComplete="off">
-        {props.children}
+      <form className={classes.root} autoComplete="off" {...other}>
+        {children}
       </form>
     </div>
   );

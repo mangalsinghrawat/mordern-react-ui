@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     },
 
     "& tbody tr:hover": {
-      backgroundColor: "#647acb",
+      backgroundColor: "#afc0fc",
       cursor: "pointer",
       transition: "0.3s ease-in",
     },
@@ -142,3 +142,4 @@ function UseDataTable(records, headCells, filterFn) {
 }
 
 export default UseDataTable;
+

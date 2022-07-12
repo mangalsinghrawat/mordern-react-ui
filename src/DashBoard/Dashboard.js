@@ -1,4 +1,5 @@
 import React from "react";
+import Chart from "../Data/Chart";
 import Navbar from "./Components/Navbar/Navbar";
 import Sidebar from "./Components/Sidebar/Sidebar";
 import StatsContainer from "./Components/Stats/StatsContainer";
@@ -20,7 +21,9 @@ function Dashboard() {
           <div className="divOne">
             <StatsContainer />
           </div>
-          <div className="divTwo"></div>
+          <div className="divTwo">
+            <Chart />
+          </div>
         </div>
       </div>
     </div>

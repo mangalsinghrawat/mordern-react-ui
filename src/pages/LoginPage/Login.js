@@ -1,27 +1,17 @@
 import { Button } from "@mui/material";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import FormInput from "../../components/FormInput";
+import FormInput, { FormPassword } from "../../components/FormInput";
 import "./Login.css";
 
 function Login() {
   const [values, setValues] = useState({
     username: "",
     password: "",
+    showPassword: false,
   });
-  // const [errors, setErrors] = useState({});
-  // const [isSubmit, setIsSubmit] = useState(false);
-  const navigate = useNavigate();
-  // useEffect(() => {
-  //   return (values = JSON.parse(localStorage.getItem("items")));
-  // }, []);
 
-  // useEffect(() => {
-  //   console.log(errors);
-  //   if (Object.keys(errors).length === 0 && isSubmit) {
-  //     console.log(values);
-  //   }
-  // }, [errors]);
+  const navigate = useNavigate();
 
   const inputs = [
     {
@@ -30,7 +20,6 @@ function Login() {
       type: "text",
       placeholder: "Username",
       label: "Username :",
-      errors: "userName is required",
     },
     {
       id: 2,
@@ -67,6 +56,16 @@ function Login() {
   //   setErrors(validate(values));
   //   setIsSubmit(true);
   // };
+  const handleClickShowPassword = () => {
+    setValues({
+      ...values,
+      showPassword: !values.showPassword,
+    });
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -96,22 +95,48 @@ function Login() {
     <div className="login">
       <form onSubmit={handleSubmit}>
         <h1>Login</h1>
-        {inputs.map((input) => (
-          <FormInput
-            key={input.id}
-            {...input}
-            value={values[input.name]}
-            onChange={onChange}
-          />
-        ))}
+        {inputs.map((input) =>
+          input.name === "password" ? (
+            <FormPassword
+              name={input.name}
+              values={values}
+              setValues={setValues}
+              password={values.password}
+              showPassword={values.showPassword}
+              key={input.id}
+              {...input}
+              value={input.password}
+              onChange={onChange}
+              handleClickShowPassword={handleClickShowPassword}
+              handleMouseDownPassword={handleMouseDownPassword}
+            />
+          ) : (
+            // <FormPassword
+            //   values={values}
+            //   setValues={setValues}
+            //   password={values.password}
+            //   showPassword={values.showPassword}
+            //   key={input.id}
+            //   {...input}
+            //   value={input.password}
+            //   onChange={onChange}
+            // />
+            <FormInput
+              key={input.id}
+              {...input}
+              value={values[input.name]}
+              onChange={onChange}
+              values={values}
+            />
+          )
+        )}
         <Button className="btnSubmit" variant="outlined" type="submit">
           Submit
         </Button>
         <h3 align="center">
-          Dont have an Account{" "}
+          Don't have an Account?
           <Link to="/register">
-            {" "}
-            <b>Register</b>
+            <b> Register</b>
           </Link>
         </h3>
       </form>

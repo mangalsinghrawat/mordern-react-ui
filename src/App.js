@@ -13,11 +13,19 @@ import UsersApi from "./Data/UsersApi";
 import UserHomePage from "./UserDesk/UserHomePage";
 import UtilityTable from "./Data/UtilityTable";
 import Employees from "./pages/Users/Employees";
+import LoginExtra from "./components/LoginExtra";
+import DummyDataTable from "./Data/DummyDataTbl";
+import PageNotFound from "./components/404Page/404Page";
+import ResumeDataTable from "./UserDesk/Resumes/ResumeDataTable";
+import AddNewResume from "./UserDesk/Resumes/AddNewResume";
+import ResumeContent from "./DashBoard/Components/ResumeContent";
+import ResumeModal from "./UserDesk/Resumes/ResumeModal";
+import ResumeHoverModal from "./UserDesk/Resumes/ResumeHoverModal";
 
 function App() {
   return (
     <div className="app">
-      <Routes> 
+      <Routes>
         <Route path="/home" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<Home />} />
@@ -31,12 +39,20 @@ function App() {
         <Route path="/user/home" element={<UserHomePage />} />
         <Route path="/table" element={<UtilityTable />} />
         <Route path="/employee" element={<Employees />} />
+        <Route path="/log" element={<LoginExtra />} />
+        <Route path="/apiDt" element={<DummyDataTable />} />
+        <Route path="*" element={<PageNotFound />} />
+        <Route path="/resumes" element={<ResumeDataTable />} />
+        <Route path="/add-new-resume" element={<AddNewResume />} />
+        <Route path="/resume-data" element={<ResumeContent />} />
+        <Route path="/resume-model" element={<ResumeHoverModal />} />
 
         {/* {["/", "/login"].map((path, index) => (
           <Route path={path} component={<Login />} key={index} />
         ))} */}
       </Routes>
     </div>
+
     // <div className="app">
     //   <Dashboard />
     // </div>

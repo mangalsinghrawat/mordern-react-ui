@@ -13,10 +13,13 @@
     align-items: center;
     transition: all 300ms ease;
 }
-
+/* 
 .logo>img {
-    height: 90px;
+    height: 100px;
     width: 100px;
+} */
+.logoImg{
+    height: 100px;
 }
 
 /* Menu */
@@ -44,6 +47,10 @@
     height: 35px;
 
 
+}
+
+.menu-item:nth-child(3){
+    background-color: blue;
 }
 
 #btn-logout {

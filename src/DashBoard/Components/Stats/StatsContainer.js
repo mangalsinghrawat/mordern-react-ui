@@ -17,6 +17,9 @@ const Wrapper = styled.section`
     grid-template-columns: 1fr 1fr 1fr;
     column-gap: 1rem;
   }
+  @media (max-width: 800px) {
+    row-gap: 1rem;
+  }
 `;
 
 const StatsContainer = () => {
@@ -27,6 +30,9 @@ const StatsContainer = () => {
       icon: <AccountBoxOutlinedIcon />,
       color: "#e9b949",
       bcg: "#fcefc7",
+      onClick: () => {
+        window.location.href = "/users-info";
+      },
     },
     {
       title: "Resumes",
@@ -34,6 +40,9 @@ const StatsContainer = () => {
       icon: <FilePresentOutlinedIcon />,
       color: "#647acb",
       bcg: "#e0e8f9",
+      onClick: () => {
+        window.location.href = "/resume-data";
+      },
     },
     {
       title: "Available Portals",
@@ -41,13 +50,16 @@ const StatsContainer = () => {
       icon: <WorkOutlineOutlinedIcon />,
       color: "#d66a6a",
       bcg: "#ffeeee",
+      onClick: () => {
+        window.location.href = "/portals";
+      },
     },
   ];
 
   return (
     <Wrapper>
       {defaultStats.map((item, index) => {
-        return <StatItem key={index} {...item} />;
+        return <StatItem key={index} {...item} onClick={item.onClick} />;
       })}
     </Wrapper>
   );

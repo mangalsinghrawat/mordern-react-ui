@@ -1,0 +1,17 @@
+.resume-modal{
+    display: flex;
+    gap: 2rem;
+    height: auto;
+    width: 300px;
+    justify-content: center;
+    align-items: center;
+}
+
+.left-div{
+    height: 200px;
+}
+.left-div .resume-img{
+
+    height: 160px;
+    width: 150px;
+}

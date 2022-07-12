@@ -1,7 +1,8 @@
 import { makeStyles } from "@material-ui/styles";
 import { Dialog, DialogContent, DialogTitle, Typography } from "@mui/material";
 import React from "react";
-import ButtonControl from "./form-controls/ButtonControl";
+import ActionButtonControl from "./form-controls/ActionButtonControl";
+import CloseIcon from "@mui/icons-material/Close";
 
 const useStyles = makeStyles(() => ({
   dialogWrapper: {
@@ -26,12 +27,9 @@ export default function PopupComp(props) {
           <Typography variant="h6" component="div" style={{ flexGrow: 1 }}>
             {title}
           </Typography>
-          <ButtonControl
-            onClick={handlClick}
-            variant="outlined"
-            color="error"
-            text="X"
-          ></ButtonControl>
+          <ActionButtonControl color="secondary" onClick={handlClick}>
+            <CloseIcon />
+          </ActionButtonControl>
         </div>
       </DialogTitle>
       <DialogContent dividers>{children}</DialogContent>

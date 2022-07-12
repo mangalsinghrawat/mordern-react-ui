@@ -9,7 +9,6 @@ import {
 
 export default function RadioGroupControl(props) {
   const { name, label, value, onChange, items } = props;
-
   return (
     <FormControl>
       <FormLabel>{label}</FormLabel>
@@ -17,7 +16,7 @@ export default function RadioGroupControl(props) {
         {items.map((item) => (
           <FormControlLabel
             key={item.id}
-            value={item.id}
+            value={item.title}
             control={<Radio />}
             label={item.title}
           />
