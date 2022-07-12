@@ -25,10 +25,12 @@ h1 {
 
 .btnSubmit {
     top: 23px;
-    left: 84px;
-    width: 250px;
+    left: 130px;
+    width: 160px;
 }
 
-h3 {
+.register-link{
     margin-top: 50px;
+    font-size: 14px;
+    margin-left: 15px;
 }

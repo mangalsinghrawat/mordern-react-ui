@@ -85,7 +85,7 @@ function Register() {
         <Button className="regiSubmit" variant="outlined" type="submit">
           Submit
         </Button>
-        <h3 align="center">
+        <h3 className="login-link" align="center">
           Already have an Account?
           <Link to="/login"> Login</Link>
         </h3>

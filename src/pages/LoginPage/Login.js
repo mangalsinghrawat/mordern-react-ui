@@ -133,7 +133,7 @@ function Login() {
         <Button className="btnSubmit" variant="outlined" type="submit">
           Submit
         </Button>
-        <h3 align="center">
+        <h3 className="register-link" align="center">
           Don't have an Account?
           <Link to="/register">
             <b> Register</b>

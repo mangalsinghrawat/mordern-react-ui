@@ -20,10 +20,16 @@ h1 {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+.login-link{
+     margin-top: 50px;
+    font-size: 14px;
+    margin-left: 15px;
+    
+}
 .regiSubmit {
 
     top: 25px;
-    left: 90px;
-    width: 300px;
+    left: 193px;
+    width: 180px;
 
 }
