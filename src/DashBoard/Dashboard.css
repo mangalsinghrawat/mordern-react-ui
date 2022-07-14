@@ -55,6 +55,7 @@
 @media (max-width: 800px) {
   .glass {
     display: block;
+    overflow: auto;
   }
 
   .sidebar {
