@@ -256,28 +256,27 @@ const ResumeDataTable = () => {
                     <TableCell>{item.name}</TableCell>
                     <TableCell>{item.email}</TableCell>
                     <TableCell>{item.mobile}</TableCell>
-
                     <TableCell>{item.gender}</TableCell>
                     <TableCell>{item.skills}</TableCell>
                     <TableCell>{item.experience}</TableCell>
-                    <TableCell
-                      style={{ padding: "0px 35px" }}
-                      onClick={resumeDownload}
-                    >
-                      {/* <Tooltip title="Click To Download" placement="right"> */}
-                      <img
-                        src="https://resumegenius.com/wp-content/uploads/2022-Modern-Resume-Template-Hub.png"
-                        className="resume-image"
-                        alt=""
-                      />
 
-                      {/* </Tooltip> */}
+                    <Tooltip title="Click To Download" placement="top">
+                      <TableCell
+                        style={{ padding: "0px 35px" }}
+                        onClick={resumeDownload}
+                      >
+                        <img
+                          src="https://resumegenius.com/wp-content/uploads/2022-Modern-Resume-Template-Hub.png"
+                          className="resume-image"
+                          alt=""
+                        />
 
-                      {/* <img src={item.resume} onMouseOver={resumeOpen} /> */}
-                      {/* <IconButton onMouseOver={openResumeOptions}>
+                        {/* <img src={item.resume} onMouseOver={resumeOpen} /> */}
+                        {/* <IconButton onMouseOver={openResumeOptions}>
                         <FilePresentOutlinedIcon />
                       </IconButton> */}
-                    </TableCell>
+                      </TableCell>
+                    </Tooltip>
                   </TableRow>
                 ))}
               </TableBody>
