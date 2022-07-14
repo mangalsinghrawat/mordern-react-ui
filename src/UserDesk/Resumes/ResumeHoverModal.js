@@ -4,7 +4,7 @@ import ResumeModal from "./ResumeModal";
 
 function ResumeHoverModal(props) {
   const { openPopup, setOpenPopup, records } = props;
-
+  // setOpenPopup(true);
   return (
     <>
       <PopupComp

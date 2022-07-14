@@ -1,0 +1,14 @@
+.resume-image{
+    height: 30px;
+    width: 30px;
+}
+
+.resume-image:hover{
+   
+    /* background: url(); */
+    display: block;
+    position: fixed;
+    transform: scale(20);
+    right: 50%;
+    bottom: 50%;
+}

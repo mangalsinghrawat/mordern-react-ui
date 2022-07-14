@@ -9,6 +9,7 @@ import {
   TableCell,
   TableRow,
   Toolbar,
+  Tooltip,
 } from "@mui/material";
 import FilePresentOutlinedIcon from "@mui/icons-material/FilePresentOutlined";
 import AddIcon from "@mui/icons-material/Add";
@@ -23,6 +24,8 @@ import ResumeModal from "./ResumeModal";
 import AddNewResume from "./AddNewResume";
 import ResumeHoverModal from "./ResumeHoverModal";
 import { ResumeJSONData } from "./ResumeJSONData";
+import "./ResumeDataTable.css";
+import ResumeMangal from "../../Data/Resume-Mangal.pdf";
 
 // import ExcelFile from "react-export-excel/dist/ExcelPlugin/components/ExcelFile";
 // import ExcelSheet from "react-export-excel/dist/ExcelPlugin/elements/ExcelSheet";
@@ -145,10 +148,10 @@ const ResumeDataTable = () => {
     setOpenPopup(true);
   };
 
-  const resumeOpen = () => {
-    window.open(
-      "https://resumegenius.com/wp-content/uploads/2022-Modern-Resume-Template-Hub.png"
-    );
+  //Resume Download Method
+  const resumeDownload = () => {
+    window.alert("Do you want to open this file");
+    window.open(ResumeMangal);
   };
 
   // const openResumeOptions = () => {
@@ -257,8 +260,20 @@ const ResumeDataTable = () => {
                     <TableCell>{item.gender}</TableCell>
                     <TableCell>{item.skills}</TableCell>
                     <TableCell>{item.experience}</TableCell>
-                    <TableCell style={{ padding: "0px 35px" }}>
-                      <img src={item.resume} onMouseOver={resumeOpen} />
+                    <TableCell
+                      style={{ padding: "0px 35px" }}
+                      onClick={resumeDownload}
+                    >
+                      {/* <Tooltip title="Click To Download" placement="right"> */}
+                      <img
+                        src="https://resumegenius.com/wp-content/uploads/2022-Modern-Resume-Template-Hub.png"
+                        className="resume-image"
+                        alt=""
+                      />
+
+                      {/* </Tooltip> */}
+
+                      {/* <img src={item.resume} onMouseOver={resumeOpen} /> */}
                       {/* <IconButton onMouseOver={openResumeOptions}>
                         <FilePresentOutlinedIcon />
                       </IconButton> */}
