@@ -41,17 +41,15 @@
 }
 
 .menuItem:hover {
-    background-color: #e8edfe;
+    background-color: #1976d2;
     font-size: 20px;
-    border-radius: 30px;
+    /* border-radius: 30px; */
     height: 35px;
-
-
+    color: #fff;
+    justify-content: center;
+    align-items: center;
 }
 
-.menu-item:nth-child(3){
-    background-color: blue;
-}
 
 #btn-logout {
     align-self: flex-end;
@@ -59,4 +57,7 @@
 
 .menuItem>a {
     color: black;
+}
+.menuItem > a:hover{
+     color: #fff;
 }

@@ -52,9 +52,9 @@ const Sidebar = () => {
           </div>
           <Link onClick={refreshPage} to='/users-info'> Users Info</Link >
         </div>
-         <div className="menuItem" >
-          <div >
-            <InsertDriveFileOutlinedIcon />
+         <div className="menuItem"  >
+          <div style={{paddingRight: '4px'}} >
+            <InsertDriveFileOutlinedIcon fontSize='small' />
           </div>
           <Link onClick={refreshPage} to='/resume-data'>Resumes</Link >
         </div>
