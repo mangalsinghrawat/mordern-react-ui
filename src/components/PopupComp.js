@@ -28,7 +28,7 @@ export default function PopupComp(props) {
             {title}
           </Typography>
           <ActionButtonControl color="secondary" onClick={handlClick}>
-            <CloseIcon />
+            <CloseIcon color="error" />
           </ActionButtonControl>
         </div>
       </DialogTitle>

@@ -21,7 +21,7 @@ function Register() {
       placeholder: "Username",
       errorMessage:
         "Username should be 3-10 character and should not have any spacial character",
-      label: "Username :",
+      // label: "Username :",
     },
     {
       id: 2,
@@ -29,15 +29,15 @@ function Register() {
       type: "email",
       placeholder: "Email Id",
       errorMessage: "Email Id is Invalid",
-      label: "Email Id : ",
+      // label: "Email Id : ",
     },
-    {
-      id: 3,
-      name: "DateOfBirth",
-      type: "date",
-      placeholder: "",
-      label: "Date Of Birth : ",
-    },
+    // {
+    //   id: 3,
+    //   name: "DateOfBirth",
+    //   type: "date",
+    //   placeholder: "",
+    //   // label: "Date Of Birth : ",
+    // },
     {
       id: 4,
       name: "password",
@@ -45,7 +45,7 @@ function Register() {
       placeholder: "Password",
       errorMessage:
         "Password should be 6 to 10 character and must have 1 letter, 1 number and 1 special character",
-      label: "Password :",
+      // label: "Password :",
     },
     {
       id: 5,
@@ -53,7 +53,7 @@ function Register() {
       type: "password",
       placeholder: "Confirm Password",
       errorMessage: "Password does not match",
-      label: "Confirm Password : ",
+      // label: "Confirm Password : ",
     },
   ];
 
@@ -73,7 +73,7 @@ function Register() {
   return (
     <div className="register">
       <form onSubmit={handleSubmit}>
-        <h1>Register</h1>
+        <h1 className="register-text">Register</h1>
         {inputs.map((input) => (
           <FormInput
             key={input.id}
@@ -86,8 +86,14 @@ function Register() {
           Submit
         </Button>
         <h3 className="login-link" align="center">
+          <hr />
+          <br />
           Already have an Account?
-          <Link to="/login"> Login</Link>
+          <Link to="/login">
+            <b>
+              <u> Login</u>
+            </b>
+          </Link>
         </h3>
       </form>
     </div>

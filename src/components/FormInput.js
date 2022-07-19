@@ -12,7 +12,7 @@ export default function FormInput(props) {
         className="textInput"
         label={placeholder}
         size="small"
-        variant="outlined"
+        variant="standard"
         {...inputProps}
         onChange={onChange}
       />
@@ -42,11 +42,11 @@ export function FormPassword(props) {
         label="Password"
         type={values.showPassword ? "text" : "password"}
         size="small"
-        variant="outlined"
+        variant="standard"
         onChange={onChange}
         InputProps={{
           endAdornment: (
-            <InputAdornment position="end">
+            <InputAdornment position="end" style={{ paddingRight: "10px" }}>
               <IconButton
                 onClick={handleClickShowPassword}
                 onMouseDown={handleMouseDownPassword}

@@ -19,14 +19,14 @@ function Login() {
       name: "username",
       type: "text",
       placeholder: "Username",
-      label: "Username :",
+      // label: "Username :",
     },
     {
       id: 2,
       name: "password",
       type: "password",
       placeholder: "Password",
-      label: "Password : ",
+      // label: "Password : ",
     },
   ];
 
@@ -94,7 +94,8 @@ function Login() {
   return (
     <div className="login">
       <form onSubmit={handleSubmit}>
-        <h1>Login</h1>
+        <h1 className="login-text">Login</h1>
+
         {inputs.map((input) =>
           input.name === "password" ? (
             <FormPassword
@@ -133,10 +134,15 @@ function Login() {
         <Button className="btnSubmit" variant="outlined" type="submit">
           Submit
         </Button>
+
         <h3 className="register-link" align="center">
+          <hr />
+          <br />
           Don't have an Account?
           <Link to="/register">
-            <b> Register</b>
+            <b>
+              <u> Register</u>
+            </b>
           </Link>
         </h3>
       </form>
