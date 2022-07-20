@@ -24,8 +24,8 @@ const useStyles = makeStyles(() => ({
     alignItems: "center",
   },
   formInput: {
-    width: "100%",
-    right: "50px",
+    width: "105%",
+    right: "90px",
   },
 
   heading: {
@@ -74,7 +74,6 @@ const UserHomePage = () => {
   const [records] = useState(EmployeeData);
   const { TblContainer, TblHead, TblPagination, recordsAfterPagingAndSorting } =
     UseDataTable(records, headCells, filterFn);
-  console.log(records);
   // const [options, setOptions] = useState(
   //   records.forEach((record) => record.first_name)
   // );
@@ -93,7 +92,9 @@ const UserHomePage = () => {
             // for (var i = items; i <= items.length; i++) {
             //   x.i[items].toLowerCase().includes(target.value);
             // }
-            x.mobile.toString().includes(target.value)
+            // x.name.toString().includes(target.value)
+
+            x.name.toLowerCase().includes(target.value)
           );
       },
     });
@@ -117,12 +118,14 @@ const UserHomePage = () => {
         <Toolbar className={classes.root}>
           <p className={classes.heading}>User Details</p>
           <InputControl
+            variant="standard"
             className={classes.formInput}
-            label="Search Employees"
+            label="Search Employee"
+            placeholder="Enter name..."
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <Search />
+                  <Search fontSize="small" />
                 </InputAdornment>
               ),
             }}
@@ -151,6 +154,7 @@ const UserHomePage = () => {
             startIcon={<AddIcon />}
             onClick={() => setOpenPopup(true)}
           /> */}
+
           <Button
             className={classes.newButton}
             variant="outlined"

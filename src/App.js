@@ -1,5 +1,5 @@
 import "./App.css";
-import React from "react";
+import React, { useState } from "react";
 import Register from "../src/pages/RegisterPage/Register.js";
 import { Routes, Route } from "react-router-dom";
 import Login from "./pages/LoginPage/Login";
@@ -23,7 +23,16 @@ import ResumeModal from "./UserDesk/Resumes/ResumeModal";
 import ResumeHoverModal from "./UserDesk/Resumes/ResumeHoverModal";
 
 function App() {
+  // const [loading, setLoading] = useState(true);
+  // const loader = document.getElementById("spinner");
+  // if (loader) {
+  //   setTimeout(() => {
+  //     loader.style.display = "none";
+  //     setLoading(false);
+  //   }, 400);
+  // }
   return (
+    // !loading && (
     <div className="app">
       <Routes>
         <Route path="/home" element={<Home />} />
@@ -32,27 +41,23 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/users-info" element={<UserInfo />} />
-        <Route path="/sidebar" element={<MainNav />} />
         <Route path="/addusers" element={<AddUsers />} />
-        <Route path="/sample" element={<SampleAddUser />} />
         <Route path="/api" element={<UsersApi />} />
         <Route path="/user/home" element={<UserHomePage />} />
         <Route path="/table" element={<UtilityTable />} />
         <Route path="/employee" element={<Employees />} />
-        <Route path="/log" element={<LoginExtra />} />
         <Route path="/apiDt" element={<DummyDataTable />} />
         <Route path="*" element={<PageNotFound />} />
         <Route path="/resumes" element={<ResumeDataTable />} />
         <Route path="/add-new-resume" element={<AddNewResume />} />
         <Route path="/resume-data" element={<ResumeContent />} />
-        <Route path="/resume-model" element={<ResumeHoverModal />} />
 
         {/* {["/", "/login"].map((path, index) => (
           <Route path={path} component={<Login />} key={index} />
         ))} */}
       </Routes>
     </div>
-
+    // )
     // <div className="app">
     //   <Dashboard />
     // </div>

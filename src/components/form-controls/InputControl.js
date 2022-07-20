@@ -2,11 +2,19 @@ import { TextField } from "@mui/material";
 import React from "react";
 
 export default function InputControl(props) {
-  const { name, label, value, error = null, onChange, ...other } = props;
+  const {
+    name,
+    label,
+    variant,
+    value,
+    error = null,
+    onChange,
+    ...other
+  } = props;
   return (
     <div>
-      <TextField 
-        variant="outlined"
+      <TextField
+        variant={variant || "outlined"}
         label={label}
         name={name}
         value={value}

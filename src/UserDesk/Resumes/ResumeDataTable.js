@@ -39,10 +39,12 @@ const useStyles = makeStyles(() => ({
   pageContent: {
     margin: "10px",
     padding: "0px",
+    top: "0px",
+    position: "sticky",
   },
   formInput: {
-    width: "100%",
-    right: "50px",
+    width: "105%",
+    right: "90px",
   },
 
   heading: {
@@ -124,8 +126,6 @@ const ResumeDataTable = () => {
   //   setOptions(e.taget.value);
   // };
 
-  console.log(records);
-
   const handleSearch = (e) => {
     let target = e.target;
     setFilterFn({
@@ -195,18 +195,20 @@ const ResumeDataTable = () => {
   return (
     <>
       <Paper className={classes.pageContent}>
-        <div style={{ overflow: "hidden", padding: "10px" }}>
+        <div style={{ overflow: "hidden" }}>
           <div className={classes.resumeData}>
             {/* <div className="userdata"> */}
             <Toolbar className={classes.root}>
               <p className={classes.heading}>Resumes</p>
               <InputControl
+                variant="standard"
                 className={classes.formInput}
                 label="Search Resume"
+                placeholder="Enter mobile no..."
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <Search />
+                      <Search fontSize="small" />
                     </InputAdornment>
                   ),
                 }}
