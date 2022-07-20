@@ -137,7 +137,7 @@ const ResumeDataTable = () => {
             // for (var i = items; i <= items.length; i++) {
             //   x.i[items].toLowerCase().includes(target.value);
             // }
-            x.MobileNumber.toString().includes(target.value)
+            x.mobile.toString().includes(target.value)
           );
       },
     });
