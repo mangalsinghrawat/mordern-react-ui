@@ -7,6 +7,8 @@ const useStyles = makeStyles((theme) => ({
   pageContent: {
     margin: "10px",
     padding: "0px",
+    top: "0px",
+    position: "sticky",
   },
 }));
 

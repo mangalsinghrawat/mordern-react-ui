@@ -41,7 +41,7 @@ const Wrapper = styled.nav`
     justify-content: center;
     gap: 0 1rem;
     position: relative;
-    background: #647acb;
+    background: #1976d2;
 
     color: #f0f0f0;
     font-weight: bold;

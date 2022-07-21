@@ -1,15 +1,13 @@
-import React, { useState } from 'react'
-import './Sidebar.css'
-import Logo from '../../../images/logo.png'
+import React, { useState } from "react";
+import "./Sidebar.css";
+import Logo from "../../../images/logo.png";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import { Link } from 'react-router-dom';
-import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
-import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
+import { Link } from "react-router-dom";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import InsertDriveFileOutlinedIcon from "@mui/icons-material/InsertDriveFileOutlined";
 const Sidebar = () => {
-
   // const [isActive, setIsActive] = useState(true)
 
-  
   // const linkStyle = ((isActive) => {
   //   return {
   //     fontWeight: isActive ? 'bold' : 'normal',
@@ -20,26 +18,49 @@ const Sidebar = () => {
   // const showSidebar = () => {
   //   setSidebar(!sidebar);
   // };
-  const refreshPage =()=>{
-    window.location('#').reload(true);
-  }
+  const refreshPage = () => {
+    window.location("#").reload(true);
+  };
   return (
-      // <div className={sidebar ? "nav-menu active" : "nav-menu"}>
-      //     {/* logo */}
-      //     <div className="logo">
-      //         <img src={Logo} alt="" />
-      // </div>
-      <div className="sidebar">
-          {/* logo */}
+    // <div className={sidebar ? "nav-menu active" : "nav-menu"}>
+    //     {/* logo */}
+    //     <div className="logo">
+    //         <img src={Logo} alt="" />
+    // </div>
+    <div className="sidebar">
+      {/* logo */}
       <div className="logo">
-        <Link to='/dashboard' >
-              <img className='logoImg' src={Logo} alt=""  />
+        <Link to="/dashboard">
+          <img className="logoImg" src={Logo} alt="" />
         </Link>
-      </div> 
-  
+      </div>
+
       {/* Menu */}
 
-      <div className='menu'>
+      <div>
+        <ul className="menu ">
+          <li className="menuItem ">
+            <Link className="linkText" to="/dashboard">
+              <HomeOutlinedIcon />
+              Dashboard
+            </Link>
+          </li>
+          <li className="menuItem">
+            <Link onClick={refreshPage} to="/users-info">
+              <PersonOutlineOutlinedIcon />
+              Users Info
+            </Link>
+          </li>
+          <li className="menuItem">
+            <Link onClick={refreshPage} to="/resume-data">
+              <InsertDriveFileOutlinedIcon fontSize="small" />
+              Resumes
+            </Link>
+          </li>
+        </ul>
+      </div>
+
+      {/* <div className='menu'>
         <div className="menuItem"  >
           <div>
             <HomeOutlinedIcon />
@@ -58,13 +79,12 @@ const Sidebar = () => {
           </div>
           <Link onClick={refreshPage} to='/resume-data'>Resumes</Link >
         </div>
-        
-        {/* <div className="menuItem">
+         */}
+      {/* <div className="menuItem">
           <Button id='btn-logout' variant='outlined' ><Link to='/login'>Logout</Link></Button>
           </div> */}
-      </div>
-  </div>
-  )
-}
+    </div>
+  );
+};
 
-export default Sidebar
+export default Sidebar;
