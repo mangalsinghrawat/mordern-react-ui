@@ -57,6 +57,13 @@
 }
 
 
+.menuItem:nth-child(2){
+    padding-right: 4px;
+}
+
+.menuItem:nth-child(3){
+    padding-right: 10px;
+}
 .menuItem> a:hover {
     background-color: #1976d2;
     color: #fff !important;
