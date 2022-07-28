@@ -62,9 +62,9 @@ function Register() {
     window.location.href = "/login";
   };
 
-  useEffect(() => {
-    localStorage.setItem("data", JSON.stringify(values));
-  }, [values]);
+  // useEffect(() => {
+  //   localStorage.setItem("data", JSON.stringify(values));
+  // }, [values]);
 
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });

@@ -15,10 +15,20 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default function PopupComp(props) {
-  const { title, children, openPopup, setOpenPopup } = props;
+  const {
+    title,
+    children,
+    openResumePopup,
+    setOpenResumePopup,
+    openPopup,
+    setOpenPopup,
+  } = props;
   const classes = useStyles();
   const handlClick = () => {
     setOpenPopup(false);
+    if (openResumePopup) {
+      setOpenResumePopup(false);
+    }
   };
   return (
     <Dialog open={openPopup} maxWidth="md " className={classes.dialogWrapper}>
@@ -27,7 +37,7 @@ export default function PopupComp(props) {
           <Typography variant="h6" component="div" style={{ flexGrow: 1 }}>
             {title}
           </Typography>
-          <ActionButtonControl color="secondary" onClick={handlClick}>
+          <ActionButtonControl onClick={handlClick}>
             <CloseIcon color="error" />
           </ActionButtonControl>
         </div>

@@ -26,7 +26,9 @@ import ResumeHoverModal from "./ResumeHoverModal";
 import { ResumeJSONData } from "./ResumeJSONData";
 import "./ResumeDataTable.css";
 import ResumeMangal from "../../Data/Resume-Mangal.pdf";
-
+import ActionButtonControl from "../../components/form-controls/ActionButtonControl";
+import DownloadForOfflineOutlinedIcon from "@mui/icons-material/DownloadForOfflineOutlined";
+import { saveAs } from "file-saver";
 // import ExcelFile from "react-export-excel/dist/ExcelPlugin/components/ExcelFile";
 // import ExcelSheet from "react-export-excel/dist/ExcelPlugin/elements/ExcelSheet";
 
@@ -89,6 +91,7 @@ const ResumeDataTable = () => {
   const classes = useStyles();
   const [records] = useState(ResumeJSONData);
   const [openPopup, setOpenPopup] = useState(false);
+  const [openResumePopup, setOpenResumePopup] = useState(false);
 
   const [filterFn, setFilterFn] = useState({
     fn: (items) => {
@@ -143,40 +146,11 @@ const ResumeDataTable = () => {
     });
   };
 
-  const openInPopup = (item) => {
-    setRecordForEdit(item);
-    setOpenPopup(true);
-  };
-
   //Resume Download Method
-  const resumeDownload = () => {
-    window.alert("Do you want to open this file");
-    window.open(ResumeMangal);
+  const resumeOptions = () => {
+    setOpenPopup(true);
+    setOpenResumePopup(true);
   };
-
-  // const openResumeOptions = () => {
-  //   setOpenPopup(true);
-  //   return (
-  //     <ResumeHoverModal
-  //       records={records}
-  //       setOpenPopup={setOpenPopup}
-  //       openPopup={openPopup}
-  //     />
-  //   );
-  // };
-
-  // const openResumeOptions = () => {
-  //   setOpenPopup(true);
-  //   return (
-  //     <PopupComp
-  //       title="Resume View"
-  //       openPopup={openPopup}
-  //       setOpenPopup={setOpenPopup}
-  //     >
-  //       <ResumeModal setOpenPopup={setOpenPopup} />
-  //     </PopupComp>
-  //   );
-  // };
 
   // const rowDeleteHandler = (id) => {
   //   axios
@@ -265,7 +239,7 @@ const ResumeDataTable = () => {
                     <Tooltip title="Click To Download" placement="top">
                       <TableCell
                         style={{ padding: "0px 35px" }}
-                        onClick={resumeDownload}
+                        onClick={resumeOptions}
                       >
                         <img
                           src="https://resumegenius.com/wp-content/uploads/2022-Modern-Resume-Template-Hub.png"
@@ -286,17 +260,29 @@ const ResumeDataTable = () => {
             <hr />
             <TblPagination />
           </div>
-          <PopupComp
-            title="Candidate Resume Form"
-            openPopup={openPopup}
-            setOpenPopup={setOpenPopup}
-          >
-            <AddNewResume
-              recordForEdit={recordForEdit}
+          {openResumePopup ? (
+            <PopupComp
+              title="Download Resume"
+              openPopup={openPopup}
               setOpenPopup={setOpenPopup}
-              setRecordForEdit={setRecordForEdit}
-            />
-          </PopupComp>
+              openResumePopup={openResumePopup}
+              setOpenResumePopup={setOpenResumePopup}
+            >
+              <ResumeModal />
+            </PopupComp>
+          ) : (
+            <PopupComp
+              title="Candidate Resume Form"
+              openPopup={openPopup}
+              setOpenPopup={setOpenPopup}
+            >
+              <AddNewResume
+                recordForEdit={recordForEdit}
+                setOpenPopup={setOpenPopup}
+                setRecordForEdit={setRecordForEdit}
+              />
+            </PopupComp>
+          )}
         </div>
       </Paper>
     </>
@@ -304,27 +290,3 @@ const ResumeDataTable = () => {
 };
 
 export default ResumeDataTable;
-
-//  {
-//    openResumeOptions ? (
-//      <PopupComp
-//        title="Candidate Resume Form"
-//        openPopup={openPopup}
-//        setOpenPopup={setOpenPopup}
-//      >
-//        <ResumeModal />
-//      </PopupComp>
-//    ) : (
-//      <PopupComp
-//        title="Candidate Resume Form"
-//        openPopup={openPopup}
-//        setOpenPopup={setOpenPopup}
-//      >
-//        <AddEmployee
-//          recordForEdit={recordForEdit}
-//          setOpenPopup={setOpenPopup}
-//          setRecordForEdit={setRecordForEdit}
-//        />
-//      </PopupComp>
-//    );
-//  }

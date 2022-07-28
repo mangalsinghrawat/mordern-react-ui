@@ -168,7 +168,7 @@ const UserHomePage = () => {
           <TblHead />
           <TableBody>
             {recordsAfterPagingAndSorting().map((item) => (
-              <TableRow key={item.id}>
+              <TableRow style={{ height: "10px !important" }} key={item.id}>
                 <TableCell>{item.userId}</TableCell>
                 <TableCell>{item.name}</TableCell>
                 <TableCell>{item.email}</TableCell>

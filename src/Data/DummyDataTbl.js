@@ -82,13 +82,20 @@ const DummyDataTable = () => {
   //   });
   // }, []);
 
+  // useEffect(() => {
+  //   axios.get("https://localhost:44379/api/Recruiters").then((res) => {
+  //     setRecords(res.data);
+  //     // console.log(res.data);
+  //     // res.set("Access-Control-Allow-Origin", "*");
+  //   });
+  // }, []);
+
   useEffect(() => {
     axios.get("https://localhost:44379/api/Recruiters").then((res) => {
       setRecords(res.data);
-      // console.log(res.data);
-      // res.set("Access-Control-Allow-Origin", "*");
+      console.log(res.data);
     });
-  }, []);
+  });
 
   const { TblContainer, TblHead, TblPagination, recordsAfterPagingAndSorting } =
     UseDataTable(records, headCells, filterFn);

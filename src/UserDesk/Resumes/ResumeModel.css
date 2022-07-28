@@ -1,17 +1,22 @@
 .resume-modal{
     display: flex;
-    gap: 2rem;
     height: auto;
     width: 300px;
-    justify-content: center;
     align-items: center;
+    justify-content: space-evenly;
+    padding: 20px;
+}
+.modal-image{
+    border-right: 1px solid;
+    padding-right: 30px;
 }
 
-.left-div{
-    height: 200px;
+.modal-image>img{
+    width: 100px; 
+    height: 100px;
+   
 }
-.left-div .resume-img{
 
-    height: 160px;
-    width: 150px;
+.modal-image >img:hover{
+    cursor: pointer;
 }

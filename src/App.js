@@ -51,7 +51,6 @@ function App() {
         <Route path="/resumes" element={<ResumeDataTable />} />
         <Route path="/add-new-resume" element={<AddNewResume />} />
         <Route path="/resume-data" element={<ResumeContent />} />
-
         {/* {["/", "/login"].map((path, index) => (
           <Route path={path} component={<Login />} key={index} />
         ))} */}

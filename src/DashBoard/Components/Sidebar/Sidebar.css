@@ -59,10 +59,12 @@
 
 .menuItem:nth-child(2){
     padding-right: 4px;
+    width: 100%;
 }
 
 .menuItem:nth-child(3){
     padding-right: 10px;
+    width: 100%;
 }
 .menuItem> a:hover {
     background-color: #1976d2;

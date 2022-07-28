@@ -213,7 +213,14 @@ function AddEmployee(props) {
             value={values.isPermanent}
             onChange={handleInputChange}
           />
-          <div>
+          <div
+            style={{
+              margin: "15px 20px",
+              display: "flex",
+              justifyContent: "flex-start",
+              gap: "10px",
+            }}
+          >
             <ButtonControl
               // classses={{ root: classes.root, label: classes.label }}
               text="Submit"

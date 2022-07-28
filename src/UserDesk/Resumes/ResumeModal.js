@@ -1,22 +1,28 @@
 import React from "react";
 import "./ResumeModel.css";
 import DownloadForOfflineOutlinedIcon from "@mui/icons-material/DownloadForOfflineOutlined";
-import { IconButton } from "@mui/material";
+import ResumeFile from "../../Data/Resume-Mangal.pdf";
+import ActionButtonControl from "../../components/form-controls/ActionButtonControl";
+import { saveAs } from "file-saver";
 
 function ResumeModal(props) {
-  const { records } = props;
+  const openImage = () => {
+    window.open(ResumeFile);
+  };
   return (
     <div className="resume-modal">
-      <div className="left-div">
+      <div className="modal-image">
         <img
           src="https://resumegenius.com/wp-content/uploads/2022-Modern-Resume-Template-Hub.png"
+          onClick={openImage}
           alt=""
-        />
+        ></img>
       </div>
-      <div className="right-div">
-        <IconButton>
-          <DownloadForOfflineOutlinedIcon />
-        </IconButton>
+      <div>
+        <ActionButtonControl onClick={() => saveAs(ResumeFile)}>
+          <DownloadForOfflineOutlinedIcon style={{ paddingRight: "5px" }} />
+          Download
+        </ActionButtonControl>
       </div>
     </div>
   );
