@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import FormInput, { FormPassword } from "../../components/FormInput";
 import "./Login.css";
+import { toast, ToastContainer } from "react-toastify";
 
 function Login() {
   const [values, setValues] = useState({
@@ -36,101 +37,114 @@ function Login() {
   // console.log(Ousername);
   // console.log(Opassword);
 
-   var AdminId = "admin";
-   var AdminPass = "bitbybit";
-   var UserId = "test1";
-   var UserPass = "bitbybit";
-   // const validate = (values) => {
-   //   const errors = {};
-   //   if (!values.username) {
-   //     errors.username = "Username is Required!";
-   //   }
-   //   if (!values.password) {
-   //     errors.password = "Password is Required!";
-   //   }
-   //   return errors;
-   // };
+  var AdminId = "admin";
+  var AdminPass = "bitbybit";
+  var UserId = "test1";
+  var UserPass = "bitbybit";
+  // const validate = (values) => {
+  //   const errors = {};
+  //   if (!values.username) {
+  //     errors.username = "Username is Required!";
+  //   }
+  //   if (!values.password) {
+  //     errors.password = "Password is Required!";
+  //   }
+  //   return errors;
+  // };
 
-   // const handleSubmit = (e) => {
-   //   e.preventDefault();
-   //   setErrors(validate(values));
-   //   setIsSubmit(true);
-   // };
-   const handleClickShowPassword = () => {
-     setValues({
-       ...values,
-       showPassword: !values.showPassword,
-     });
-   };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   setErrors(validate(values));
+  //   setIsSubmit(true);
+  // };
+  const handleClickShowPassword = () => {
+    setValues({
+      ...values,
+      showPassword: !values.showPassword,
+    });
+  };
 
-   const handleMouseDownPassword = (event) => {
-     event.preventDefault();
-   };
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
-   const handleSubmit = (e) => {
-     e.preventDefault();
-     if (values.username === AdminId && values.password === AdminPass) {
-       navigate("/dashboard");
-     } else if (values.username === UserId && values.password === UserPass) {
-       navigate("/user/home");
-     } else {
-       alert("invalid credentials!");
-     }
-   };
-   const onChange = (e) => {
-     setValues({ ...values, [e.target.name]: e.target.value });
-   };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (values.username === AdminId && values.password === AdminPass) {
+      // toast.success("Welcome Admin");
+      navigate("/dashboard");
+    } else if (values.username === UserId && values.password === UserPass) {
+      toast.success("Welcome User");
+      navigate("/user/home");
+    } else {
+      toast.error("invalid credentials!");
+    }
+  };
+  const onChange = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
 
-   // const onChange = (e) => {
-   //   setValues({ ...values, [e.target.name]: e.target.value });
-   // };
-   return (
-     <div className="login">
-       <form onSubmit={handleSubmit}>
-         <h1 className="login-text">Login</h1>
+  // const onChange = (e) => {
+  //   setValues({ ...values, [e.target.name]: e.target.value });
+  // };
+  return (
+    <div className="login">
+      <form onSubmit={handleSubmit}>
+        <h1 className="login-text">Login</h1>
 
-         {inputs.map((input) =>
-           input.name === "password" ? (
-             <FormPassword
-               name={input.name}
-               values={values}
-               setValues={setValues}
-               password={values.password}
-               showPassword={values.showPassword}
-               key={input.id}
-               {...input}
-               value={input.password}
-               onChange={onChange}
-               handleClickShowPassword={handleClickShowPassword}
-               handleMouseDownPassword={handleMouseDownPassword}
-             />
-           ) : (
-             <FormInput
-               key={input.id}
-               {...input}
-               value={values[input.name]}
-               onChange={onChange}
-               values={values}
-             />
-           )
-         )}
-         <Button className="btnSubmit" variant="outlined" type="submit">
-           Submit
-         </Button>
+        {inputs.map((input) =>
+          input.name === "password" ? (
+            <FormPassword
+              name={input.name}
+              values={values}
+              setValues={setValues}
+              password={values.password}
+              showPassword={values.showPassword}
+              key={input.id}
+              {...input}
+              value={input.password}
+              onChange={onChange}
+              handleClickShowPassword={handleClickShowPassword}
+              handleMouseDownPassword={handleMouseDownPassword}
+            />
+          ) : (
+            <FormInput
+              key={input.id}
+              {...input}
+              value={values[input.name]}
+              onChange={onChange}
+              values={values}
+            />
+          )
+        )}
+        <Button className="btnSubmit" variant="outlined" type="submit">
+          Submit
+        </Button>
 
-         <h3 className="register-link" align="center">
-           <hr />
-           <br />
-           Don't have an Account?
-           <Link to="/register">
-             <b>
-               <u> Register</u>
-             </b>
-           </Link>
-         </h3>
-       </form>
-     </div>
-   );
+        <h3 className="register-link" align="center">
+          <hr />
+          <br />
+          Don't have an Account?
+          <Link to="/register">
+            <b>
+              <u> Register</u>
+            </b>
+          </Link>
+        </h3>
+      </form>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+    </div>
+  );
 }
 
 export default Login;

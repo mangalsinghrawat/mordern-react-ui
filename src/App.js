@@ -21,6 +21,7 @@ import AddNewResume from "./UserDesk/Resumes/AddNewResume";
 import ResumeContent from "./DashBoard/Components/ResumeContent";
 import ResumeModal from "./UserDesk/Resumes/ResumeModal";
 import ResumeHoverModal from "./UserDesk/Resumes/ResumeHoverModal";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   // const [loading, setLoading] = useState(true);
