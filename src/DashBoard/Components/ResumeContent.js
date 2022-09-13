@@ -14,7 +14,7 @@ function ResumeContent() {
             <div>
               <Navbar />
             </div>
-            <div>
+            <div style={{ height: "90vh" }}>
               <ResumeDataTable />
             </div>
           </div>

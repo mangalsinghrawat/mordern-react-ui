@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 function UseDataTable(records, headCells, filterFn) {
   const classes = useStyles();
 
-  const pages = [7, 10, 15];
+  const pages = [6, 10, 15];
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(pages[page]);
   const [order, setOrder] = useState();
@@ -55,7 +55,7 @@ function UseDataTable(records, headCells, filterFn) {
 
     return (
       <TableHead>
-        <TableRow style={{ position: "sticky" }}>
+        <TableRow style={{ position: "sticky", whiteSpace: "nowrap" }}>
           {headCells.map((headCell) => (
             <TableCell
               key={headCell.id}
@@ -91,7 +91,10 @@ function UseDataTable(records, headCells, filterFn) {
 
   const TblPagination = () => (
     <TablePagination
-      style={{ border: "2px solid white", overflow: "hidden" }}
+      style={{
+        border: "2px solid white",
+        overflow: "hidden",
+      }}
       component="div"
       page={page}
       count={records.length}

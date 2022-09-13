@@ -6,8 +6,9 @@ import CloseIcon from "@mui/icons-material/Close";
 
 const useStyles = makeStyles(() => ({
   dialogWrapper: {
-    padding: "60px",
+    padding: "20px 60px",
     height: "650px",
+    position: "absolute",
   },
   dialogTitle: {
     paddingRight: "0px",
@@ -18,17 +19,13 @@ export default function PopupComp(props) {
   const {
     title,
     children,
-    openResumePopup,
-    setOpenResumePopup,
+
     openPopup,
     setOpenPopup,
   } = props;
   const classes = useStyles();
   const handlClick = () => {
     setOpenPopup(false);
-    if (openResumePopup) {
-      setOpenResumePopup(false);
-    }
   };
   return (
     <Dialog open={openPopup} maxWidth="md " className={classes.dialogWrapper}>

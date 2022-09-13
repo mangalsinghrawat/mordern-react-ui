@@ -22,6 +22,7 @@ import ResumeContent from "./DashBoard/Components/ResumeContent";
 import ResumeModal from "./UserDesk/Resumes/ResumeModal";
 import ResumeHoverModal from "./UserDesk/Resumes/ResumeHoverModal";
 import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   // const [loading, setLoading] = useState(true);
@@ -32,6 +33,7 @@ function App() {
   //     setLoading(false);
   //   }, 400);
   // }
+  // if (!localStorage.getItem("recruiter-details")) return <Login />;
   return (
     // !loading && (
     <div className="app">
@@ -50,12 +52,23 @@ function App() {
         <Route path="/apiDt" element={<DummyDataTable />} />
         <Route path="*" element={<PageNotFound />} />
         <Route path="/resumes" element={<ResumeDataTable />} />
-        <Route path="/add-new-resume" element={<AddNewResume />} />
+        <Route path="/add-resume" element={<AddNewResume />} />
         <Route path="/resume-data" element={<ResumeContent />} />
         {/* {["/", "/login"].map((path, index) => (
           <Route path={path} component={<Login />} key={index} />
         ))} */}
       </Routes>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
     // )
     // <div className="app">

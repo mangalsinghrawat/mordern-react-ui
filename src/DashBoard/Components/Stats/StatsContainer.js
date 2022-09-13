@@ -9,6 +9,7 @@ import { ResumeJSONData } from "../../../UserDesk/Resumes/ResumeJSONData";
 const Wrapper = styled.section`
   display: grid;
   row-gap: 2rem;
+  cursor: pointer;
 
   @media (min-width: 768px) {
     grid-template-columns: 1fr 1fr;

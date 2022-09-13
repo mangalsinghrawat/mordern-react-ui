@@ -4,9 +4,10 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 import { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { userData } from "../../../utils/sessionData";
 
 const Wrapper = styled.nav`
-  height: 6rem;
+  height: 4rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -124,6 +125,14 @@ const Navbar = () => {
   // const showSidebar = () => {
   //   setSidebar(!sidebar);
   // };
+  const logoutHandler = () => {
+    sessionStorage.removeItem("recruiter-details");
+  };
+
+  const UserNameInitial = userData.FullName.split(" ")[0];
+  const UserName = UserNameInitial + " (" + userData.UserType + ")";
+
+  // console.log(UserType);
 
   return (
     <Wrapper>
@@ -155,13 +164,14 @@ const Navbar = () => {
           >
             <AccountCircleOutlinedIcon />
             {/* {user?.name} */}
-            Admin
+            {UserName}
             <ArrowDropDownOutlinedIcon />
           </button>
           <div className={showLogout ? "dropdown show-dropdown" : "dropdown"}>
             <button
               type="button"
               className="dropdown-btn"
+              onClick={logoutHandler}
               //   onClick={() => dispatch(clearStore("Logging out..."))}
             >
               <Link to="/login">Logout</Link>

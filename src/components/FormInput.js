@@ -53,9 +53,9 @@ export function FormPassword(props) {
                 edge="end"
               >
                 {values.showPassword ? (
-                  <VisibilityOffOutlined fontSize="small" color="error" />
-                ) : (
                   <VisibilityOutlined fontSize="small" color="primary" />
+                ) : (
+                  <VisibilityOffOutlined fontSize="small" color="error" />
                 )}
               </IconButton>
             </InputAdornment>

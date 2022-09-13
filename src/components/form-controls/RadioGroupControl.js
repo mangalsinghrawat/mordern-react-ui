@@ -5,23 +5,25 @@ import {
   FormControlLabel,
   FormLabel,
   RadioGroup,
+  FormHelperText,
 } from "@mui/material";
 
 export default function RadioGroupControl(props) {
-  const { name, label, value, onChange, items } = props;
+  const { name, label, value, onChange, items, helperText, row } = props;
   return (
     <FormControl>
       <FormLabel>{label}</FormLabel>
-      <RadioGroup row name={name} value={value} onChange={onChange}>
-        {items.map((item) => (
+      <RadioGroup {...props} name={name} value={value} onChange={onChange}>
+        {items.map((item, index) => (
           <FormControlLabel
-            key={item.id}
-            value={item.title}
+            key={index}
+            value={item.Gender_Id}
             control={<Radio />}
-            label={item.title}
+            label={item.Gender_Title}
           />
         ))}
       </RadioGroup>
+      <FormHelperText error>{helperText}</FormHelperText>
     </FormControl>
   );
 }

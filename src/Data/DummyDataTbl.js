@@ -91,11 +91,10 @@ const DummyDataTable = () => {
   // }, []);
 
   useEffect(() => {
-    axios.get("https://localhost:44379/api/Recruiters").then((res) => {
+    axios.get("http://localhost:62075/api/Recruiters/").then((res) => {
       setRecords(res.data);
-      console.log(res.data);
     });
-  });
+  }, []);
 
   const { TblContainer, TblHead, TblPagination, recordsAfterPagingAndSorting } =
     UseDataTable(records, headCells, filterFn);
@@ -132,7 +131,7 @@ const DummyDataTable = () => {
 
   // const rowDeleteHandler = (id) => {
   //   axios
-  //     .delete(`https://localhost:44379/api/Recruiters/${id}`)
+  //     .delete(`http://localhost:62075/api/Recruiters/${id}`)
   //     .then((res) => setRecords(res.data));
   // };
 
@@ -146,11 +145,8 @@ const DummyDataTable = () => {
 
   const deleteItem = async (Id) => {
     await axios
-      .delete(`https://localhost:44379/api/Recruiters/${Id}`)
+      .delete(`https://localhost:62075/api/Recruiters/${Id}`)
       .then((res) => {
-        console.log(res);
-        console.log(res.data);
-
         const employees = records.filter((item) => item.Id !== Id);
         setRecords({ employees });
       });
@@ -222,7 +218,7 @@ const DummyDataTable = () => {
           <TblHead />
           <TableBody>
             {recordsAfterPagingAndSorting().map((item) => (
-              <TableRow key={item.id}>
+              <TableRow key={item.UserId}>
                 <TableCell>{item.FullName}</TableCell>
                 <TableCell>{item.Email}</TableCell>
                 <TableCell>{item.MobileNumber}</TableCell>

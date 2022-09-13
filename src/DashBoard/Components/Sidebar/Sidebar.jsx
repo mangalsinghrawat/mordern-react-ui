@@ -5,6 +5,11 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import { Link } from "react-router-dom";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import InsertDriveFileOutlinedIcon from "@mui/icons-material/InsertDriveFileOutlined";
+import AddNewResume from "../../../UserDesk/Resumes/AddNewResume";
+import AddIcon from "@mui/icons-material/Add";
+import PopupComp from "../../../components/PopupComp";
+import { userData } from "../../../utils/sessionData";
+
 const Sidebar = () => {
   // const [isActive, setIsActive] = useState(true)
 
@@ -21,6 +26,8 @@ const Sidebar = () => {
   const refreshPage = () => {
     window.location("#").reload(true);
   };
+
+  const UserType = userData.UserType;
   return (
     // <div className={sidebar ? "nav-menu active" : "nav-menu"}>
     //     {/* logo */}
@@ -45,44 +52,44 @@ const Sidebar = () => {
               Dashboard
             </Link>
           </li>
-          <li className="menuItem">
-            <Link onClick={refreshPage} to="/users-info">
-              <PersonOutlineOutlinedIcon />
-              Users Info
-            </Link>
-          </li>
+          {UserType === "Admin" ? (
+            <li className="menuItem">
+              <Link onClick={refreshPage} to="/users-info">
+                <PersonOutlineOutlinedIcon />
+                Users Info
+              </Link>
+            </li>
+          ) : (
+            ""
+          )}
           <li className="menuItem">
             <Link onClick={refreshPage} to="/resume-data">
               <InsertDriveFileOutlinedIcon fontSize="small" />
-              Resumes
+              Search Resumes
+            </Link>
+          </li>
+          <li className="menuItem">
+            <Link to="/add-resume">
+              <AddIcon fontSize="small" />
+              Add New Resume
             </Link>
           </li>
         </ul>
+        {/* <li className="menuItem">
+            <Link onClick={() => setOpenPopup(true)} to="/add-resume">
+              <AddIcon fontSize="small" />
+              Add New
+            </Link>
+          </li>
+        </ul>
+        <PopupComp
+          title="Candidate Resume Form"
+          openPopup={openPopup}
+          setOpenPopup={setOpenPopup}
+        >
+          <AddNewResume setOpenPopup={setOpenPopup} />
+        </PopupComp> */}
       </div>
-
-      {/* <div className='menu'>
-        <div className="menuItem"  >
-          <div>
-            <HomeOutlinedIcon />
-          </div>
-          <Link to='/dashboard'>Dashboard</Link >
-        </div>
-        <div className="menuItem">
-          <div>
-            <PersonOutlineOutlinedIcon />
-          </div>
-          <Link onClick={refreshPage} to='/users-info'> Users Info</Link >
-        </div>
-         <div className="menuItem"  >
-          <div style={{paddingRight: '4px'}} >
-            <InsertDriveFileOutlinedIcon fontSize='small' />
-          </div>
-          <Link onClick={refreshPage} to='/resume-data'>Resumes</Link >
-        </div>
-         */}
-      {/* <div className="menuItem">
-          <Button id='btn-logout' variant='outlined' ><Link to='/login'>Logout</Link></Button>
-          </div> */}
     </div>
   );
 };

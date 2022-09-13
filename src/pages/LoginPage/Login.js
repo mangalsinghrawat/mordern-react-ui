@@ -1,25 +1,26 @@
 import { Button } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import FormInput, { FormPassword } from "../../components/FormInput";
 import "./Login.css";
 import { toast, ToastContainer } from "react-toastify";
+import axios from "../../api/apiUrl";
 
 function Login() {
   const [values, setValues] = useState({
-    username: "",
+    userId: "",
     password: "",
     showPassword: false,
   });
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const inputs = [
     {
       id: 1,
-      name: "username",
+      name: "userId",
       type: "text",
-      placeholder: "Username",
+      placeholder: "UserId",
       // label: "Username :",
     },
     {
@@ -30,27 +31,6 @@ function Login() {
       // label: "Password : ",
     },
   ];
-
-  // var Ousername = localStorage.getItem("username", values.username);
-  // var Opassword = localStorage.getItem("password", values.password);
-
-  // console.log(Ousername);
-  // console.log(Opassword);
-
-  var AdminId = "admin";
-  var AdminPass = "bitbybit";
-  var UserId = "test1";
-  var UserPass = "bitbybit";
-  // const validate = (values) => {
-  //   const errors = {};
-  //   if (!values.username) {
-  //     errors.username = "Username is Required!";
-  //   }
-  //   if (!values.password) {
-  //     errors.password = "Password is Required!";
-  //   }
-  //   return errors;
-  // };
 
   // const handleSubmit = (e) => {
   //   e.preventDefault();
@@ -70,15 +50,24 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (values.username === AdminId && values.password === AdminPass) {
-      // toast.success("Welcome Admin");
-      navigate("/dashboard");
-    } else if (values.username === UserId && values.password === UserPass) {
-      toast.success("Welcome User");
-      navigate("/user/home");
-    } else {
-      toast.error("invalid credentials!");
-    }
+    const data = {
+      UserId: values.userId,
+      Password: values.password,
+    };
+
+    axios.post("Recruiters/Login", data).then((res) => {
+      console.log(res);
+      if (data.UserId === " " || data.Password === "") {
+        toast.error("Fill all the fields first");
+      } else {
+        if (res.data.UserType != null) {
+          sessionStorage.setItem("recruiter-details", JSON.stringify(res.data));
+          window.location.href = "/dashboard";
+        } else {
+          toast.error("invalid credentials!");
+        }
+      }
+    });
   };
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
@@ -132,17 +121,6 @@ function Login() {
           </Link>
         </h3>
       </form>
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
     </div>
   );
 }

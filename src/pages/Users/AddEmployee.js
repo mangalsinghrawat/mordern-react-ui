@@ -1,7 +1,8 @@
 import { Grid, TextField } from "@mui/material";
-import axios from "axios";
+import axios from "../../api/apiUrl";
 import moment from "moment";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import ButtonControl from "../../components/form-controls/ButtonControl";
 import CheckboxControl from "../../components/form-controls/CheckboxControl";
 
@@ -10,16 +11,15 @@ import RadioGroupControl from "../../components/form-controls/RadioGroupControl"
 import SelectControl from "../../components/form-controls/SelectControl";
 import { useForm, Form } from "../../components/useForm";
 
-const getUserType = [
-  { id: "1", title: "Admin" },
-  { id: "2", title: "Recruiter" },
-];
+// const getUserType = [
+//   { id: "1", title: "Admin" },
+//   { id: "2", title: "Recruiter" },
+// ];
 
-const genderItems = [
-  { id: "male", title: "Male" },
-  { id: "female", title: "Female" },
-  { id: "other", title: "Other" },
-];
+// const genderItems = [
+//   { id: "1", title: "Male" },
+//   { id: "2", title: "Female" },
+// ];
 
 const initialValues = {
   fullName: "",
@@ -30,7 +30,7 @@ const initialValues = {
   password: "",
   userType: "",
   dateOfJoining: moment().format("YYYY-MM-DD"),
-  isPermanent: false,
+  // isPermanent: false,
 };
 
 // const useStyles = makeStyles(() => ({
@@ -43,17 +43,25 @@ const initialValues = {
 // }));
 
 function AddEmployee(props) {
-  const { recordForEdit } = props;
+  const { insertOrUpdate, recordForEdit } = props;
+  const [userTypes, setUserTypes] = useState([{}]);
+  const [genders, setGenders] = useState([{}]);
+  const [helperText, setHelperText] = useState("");
   const validate = (fieldValues = values) => {
     // let temp = { ...errors };
     let temp = {};
 
     if ("fullName" in fieldValues)
       temp.fullName = fieldValues.fullName ? "" : "This field is required";
-    if ("email" in fieldValues)
-      temp.email = /$^|.+@.+..+/.test(fieldValues.email)
+    if ("email" in fieldValues) {
+      (temp.email = /^[a-z0-9](\.?[a-z0-9]){5,}@g(oogle)?mail\.com$/i.test(
+        fieldValues.email
+      )
         ? ""
-        : "Email is not valid";
+        : "Email is not valid") ||
+        (temp.email = fieldValues.email ? "" : " Required Email ");
+    }
+
     if ("mobileNumber" in fieldValues)
       // temp.mobile = fieldValues.mobile
       temp.mobileNumber = /^([7-9]{1}[0-9]{9})$/.test(fieldValues.mobileNumber)
@@ -66,9 +74,9 @@ function AddEmployee(props) {
       temp.userid = fieldValues.userid ? "" : "This field is required";
     if ("password" in fieldValues)
       temp.password =
-        fieldValues.password.length > 6
+        fieldValues.password.length >= 6
           ? ""
-          : "Password must be greater than 6 digit";
+          : "Password must be atleast 6 digit";
 
     setErrors({
       ...temp,
@@ -86,6 +94,15 @@ function AddEmployee(props) {
     resetForm,
   } = useForm(initialValues, true, validate);
 
+  useEffect(() => {
+    getGenderByApi();
+    getUserTypes();
+    // userRoles();
+    if (recordForEdit != null)
+      setValues({
+        ...recordForEdit,
+      });
+  }, [recordForEdit, setValues]);
   // const handleSubmit = (e) => {
   //   e.preventDefault();
   //   if (validate()) {
@@ -95,20 +112,48 @@ function AddEmployee(props) {
   //   }
   // };
 
+  const getUserTypes = () => {
+    axios.get("UserTypes").then((res) => {
+      setUserTypes(res.data);
+      // console.table(roles);
+    });
+  };
+
+  // console.log(userTypes.map((i) => i.Roles));
+  // const userRoles = () => {
+  //   userTypes.map((type) => type.Roles);
+  // };
+
+  const handleRadioChange = (e) => {
+    setValues({
+      ...values,
+      [e.target.name]: e.target.value,
+    });
+    setHelperText("");
+    setErrors(false);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (values.gender === "1") {
+      setHelperText("");
+      setErrors(false);
+    } else if (values.gender === "2") {
+      setHelperText("");
+      setErrors(false);
+    } else {
+      setHelperText("Please select an option.");
+      setErrors(true);
+    }
 
     if (validate()) {
-      window.confirm("New Record Added...");
-      window.location.href = "/apiDt";
-      axios
-        .post("https://localhost:44379/api/Recruiters", values)
-        .then((res) => {
-          // setValues(...values, res.data);
-          console.log(res.data);
-        });
-      resetForm();
+      axios.post("Recruiters", values).then((res) => {
+        setValues(...values, res.data);
+        toast.success("New User Added...");
+      });
 
+      window.location.href = "/users-info";
+      resetForm();
       // if (recordForEdit.userId != null) {
       //   window.location.href = "/apiDt";
       //   window.alert(" Record Updated...");
@@ -123,41 +168,44 @@ function AddEmployee(props) {
       //   });
       //   resetForm();
       // }
+    } else {
+      toast.error("Please Fill the Form first");
     }
   };
 
+  const getGenderByApi = () => {
+    axios.get("Genders").then((res) => {
+      setGenders(res.data);
+      // console.log(res.data);
+    });
+  };
+
   //recordForEdit
-  useEffect(() => {
-    if (recordForEdit != null)
-      setValues({
-        ...recordForEdit,
-      });
-  }, [recordForEdit, setValues]);
 
   // const classes = useStyles();
   return (
     // <form className={classes.root}>
-    <Form onSubmit={handleSubmit}>
+    <Form style={{ width: "800px" }} onSubmit={handleSubmit}>
       <Grid container>
         <Grid item xs={6}>
           <InputControl
             label="Full Name"
             name="fullName"
-            value={values.fullName}
+            value={values.fullName || ""}
             onChange={handleInputChange}
             error={errors.fullName}
           />
           <InputControl
             name="email"
             label="Email"
-            value={values.email}
+            value={values.email || ""}
             error={errors.email}
             onChange={handleInputChange}
           />
           <InputControl
             name="mobileNumber"
             label="Mobile Number"
-            value={values.mobileNumber}
+            value={values.mobileNumber || ""}
             error={errors.mobileNumber}
             onChange={handleInputChange}
           />
@@ -165,14 +213,14 @@ function AddEmployee(props) {
             name="userid"
             label="UserId"
             error={errors.userid}
-            value={values.userid}
+            value={values.userid || ""}
             onChange={handleInputChange}
           />
           <InputControl
             name="password"
             label="Password"
             error={errors.password}
-            value={values.password}
+            value={values.password || ""}
             onChange={handleInputChange}
           />
         </Grid>
@@ -181,23 +229,28 @@ function AddEmployee(props) {
             default
             name="gender"
             label="Gender"
-            value={values.gender}
-            onChange={handleInputChange}
-            items={genderItems}
+            row
+            // defaultValue={values.gender}
+            helperText={helperText}
+            error={errors.gender}
+            value={values.gender || ""}
+            onChange={handleRadioChange}
+            items={genders}
           />
           <SelectControl
             name="userType"
             label="User Type"
-            value={values.userType}
+            // defaultValue={values.userType}
+            value={values.userType || ""}
             onChange={handleSelectChange}
             error={errors.userType}
-            options={getUserType}
+            options={userTypes}
           />
           <TextField
             type="date"
             name="dateOfJoining"
             label="Date of Joining"
-            value={values.dateOfJoining}
+            value={values.dateOfJoining || moment().format("YYYY-MM-DD")}
             onChange={handleInputChange}
           />
 
@@ -207,12 +260,12 @@ function AddEmployee(props) {
             value={values.joinDate}
             onChange={handleInputChange}
           /> */}
-          <CheckboxControl
+          {/* <CheckboxControl
             name="isPermanent"
             label="Permanent Employee"
             value={values.isPermanent}
             onChange={handleInputChange}
-          />
+          /> */}
           <div
             style={{
               margin: "15px 20px",
