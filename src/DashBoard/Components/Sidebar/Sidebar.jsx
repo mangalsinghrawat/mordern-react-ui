@@ -9,6 +9,7 @@ import AddNewResume from "../../../UserDesk/Resumes/AddNewResume";
 import AddIcon from "@mui/icons-material/Add";
 import PopupComp from "../../../components/PopupComp";
 import { userData } from "../../../utils/sessionData";
+import { ENUM_USERTYPE } from "../../../utils/Enums";
 
 const Sidebar = () => {
   // const [isActive, setIsActive] = useState(true)
@@ -27,7 +28,7 @@ const Sidebar = () => {
     window.location("#").reload(true);
   };
 
-  const UserType = userData.UserType;
+  const UserType = ENUM_USERTYPE[userData.UserType];
   return (
     // <div className={sidebar ? "nav-menu active" : "nav-menu"}>
     //     {/* logo */}
@@ -69,7 +70,7 @@ const Sidebar = () => {
             </Link>
           </li>
           <li className="menuItem">
-            <Link to="/add-resume">
+            <Link onClick={refreshPage} to="/add-resume">
               <AddIcon fontSize="small" />
               Add New Resume
             </Link>

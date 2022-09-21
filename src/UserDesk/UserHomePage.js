@@ -17,6 +17,7 @@ import PopupComp from "../components/PopupComp";
 import AddEmployee from "../pages/Users/AddEmployee";
 import axios from "../api/apiUrl";
 import { toast } from "react-toastify";
+import { ENUM_GENDER } from "../utils/Enums";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -240,12 +241,12 @@ const UserHomePage = () => {
         <TblContainer>
           <TblHead />
           <TableBody>
-            {recordsAfterPagingAndSorting().map((item) => (
-              <TableRow style={{ height: "10px !important" }} key={item.Id}>
+            {recordsAfterPagingAndSorting().map((item, index) => (
+              <TableRow style={{ height: "10px !important" }} key={index}>
                 <TableCell>{item.UserId}</TableCell>
                 <TableCell>{item.FullName}</TableCell>
                 <TableCell>{item.Email}</TableCell>
-                <TableCell>{item.Gender}</TableCell>
+                <TableCell>{ENUM_GENDER[item.Gender]}</TableCell>
                 <TableCell>{item.MobileNumber}</TableCell>
                 <TableCell
                   className={classes.dateofj}

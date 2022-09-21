@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 
 export default function RadioGroupControl(props) {
-  const { name, label, value, onChange, items, helperText, row } = props;
+  const { name, label, value, onChange, items, helpertext, row } = props;
   return (
     <FormControl>
       <FormLabel>{label}</FormLabel>
@@ -23,7 +23,7 @@ export default function RadioGroupControl(props) {
           />
         ))}
       </RadioGroup>
-      <FormHelperText error>{helperText}</FormHelperText>
+      <FormHelperText error>{helpertext}</FormHelperText>
     </FormControl>
   );
 }

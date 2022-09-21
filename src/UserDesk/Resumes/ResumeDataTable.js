@@ -44,6 +44,9 @@ import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import { Form, useForm } from "../../components/useForm";
 import ButtonControl from "../../components/form-controls/ButtonControl";
 
+import { useLocation, useNavigate } from "react-router-dom";
+import { ENUM_GENDER } from "../../utils/Enums";
+
 const useStyles = makeStyles(() => ({
   root: {
     margin: "10px 0px",
@@ -62,6 +65,7 @@ const useStyles = makeStyles(() => ({
   formInput: {
     width: "100%",
     float: "right",
+
     // right: "35%",
   },
 
@@ -80,6 +84,20 @@ const useStyles = makeStyles(() => ({
     // flexWrap: "wrap",
     color: "#647acb",
     // paddingRight: "150px",
+  },
+  updateBtn: {
+    height: "20px",
+    // fontSize: "10px !important",
+    width: "auto",
+    height: "30px !important",
+    borderRadius: "10% !important",
+    // textTransform: "capitalize !important",
+    color: "white  !important ",
+    backgroundColor: "#647acb  !important",
+    "&:hover": {
+      color: "#647acb  !important",
+      backgroundColor: "white  !important",
+    },
   },
   newButton: {
     position: "absolute",
@@ -121,6 +139,7 @@ const fieldsForSearching = {
 };
 
 const headCells = [
+  { id: "action", label: "Action" },
   { id: "firstName", label: "First Name" },
   { id: "lastName", label: "Last Name" },
   { id: "email", label: "Email", disableSorting: true },
@@ -133,10 +152,13 @@ const headCells = [
   { id: "resume", label: "Resume", disableSorting: true },
 ];
 
-const ResumeDataTable = () => {
+const ResumeDataTable = (props) => {
+  const { setSearchHeader } = props;
   const classes = useStyles();
   // const [selectedSearchFields, setSelectedSearchFields] = useState([]);
   // const [records] = useState(ResumeJSONData);
+  const [recordForEdit, setRecordForEdit] = useState({});
+
   const [records, setRecords] = useState([{}]);
   const [skills, setSkills] = useState([{}]);
   const [disableTable, setDisableTable] = useState(true);
@@ -151,16 +173,27 @@ const ResumeDataTable = () => {
     },
   });
   // const [recordForEdit, setRecordForEdit] = useState(null);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   //************************ DATA FETCHING WITH API ********************************* */
+  const duplicateRecords = location.state;
+  console.log(location.state);
   useEffect(() => {
     // axios.get("resumes").then((res) => {
     //   setRecords(res.data);
     //   console.log(res.data);
     // });
+    if (duplicateRecords !== null) {
+      setDisableTable(false);
+      setRecords(duplicateRecords);
+    } else {
+      setDisableTable(true);
+    }
+
     skillDataByApi();
     skillName();
-  }, []);
+  }, [duplicateRecords]);
 
   const skillDataByApi = async () => {
     await axios.get("Skills").then((res) => {
@@ -239,7 +272,9 @@ const ResumeDataTable = () => {
 
   const searchModifyHandler = () => {
     setDisableTable(true);
+    setSearchHeader("Search Resume");
     resetForm();
+    // window.location.reload();
   };
   const {
     values,
@@ -335,9 +370,17 @@ const ResumeDataTable = () => {
   //     </ExcelFile>
   //   );
   // };
+  const updateResumeHandler = (item) => {
+    // window.location.href = "/add-resume";
+    navigate("/add-resume", { state: item });
+    setRecordForEdit(item);
+    // console.log(item);
+  };
+
+  // console.log(recordForEdit);
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    setSearchHeader("Search Results");
     axios.post("Resumes/SearchResume", values).then((res) => {
       setRecords(res.data);
       console.log(res.data);
@@ -358,8 +401,6 @@ const ResumeDataTable = () => {
             style={{ width: "91%", height: "auto" }}
           >
             <Grid container style={{ marginLeft: "-40px", marginTop: "20px" }}>
-              {/* <Grid item xs={12} style={{ marginLeft: "-40px" }}> */}
-              {/* <Grid container> */}
               <Grid item xs={3}>
                 <InputControl
                   label="First Name"
@@ -440,9 +481,7 @@ const ResumeDataTable = () => {
                   )}
                 />
               </Grid>
-              {/* </Grid> */}
 
-              {/* <Grid container columnSpacing={1}> */}
               <FormControl style={{ flexDirection: "row" }}>
                 <Grid item>
                   <FormLabel>Experience</FormLabel>
@@ -567,16 +606,21 @@ const ResumeDataTable = () => {
               <Toolbar className={classes.root}>
                 <div className={classes.heading}>
                   <table className="tbl-filtered">
-                    <tr>
-                      {Object.keys(selectedSearchFields).map((keys) => {
-                        return <th className="tbl-filtered-row">{keys}</th>;
-                      })}
-                    </tr>
-                    <tr className="tbl-data">
-                      {Object.values(selectedSearchFields).map((value) => {
-                        return <td className="tbl-filtered-row">{value}</td>;
-                      })}
-                    </tr>
+                    <thead>
+                      <tr>
+                        {Object.keys(selectedSearchFields).map((keys, index) => {
+                          return <th key={index} className="tbl-filtered-row">{keys}</th>;
+                        })}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="tbl-data">
+                        {Object.values(selectedSearchFields).map((value) => {
+                          return <td className="tbl-filtered-row">{value}</td>;
+                        })}
+                      </tr>
+                    </tbody>
+
                     {/* <td>{Object.values(selectedSearchFields).join(" , ")}</td> */}
                   </table>
                 </div>
@@ -635,11 +679,30 @@ const ResumeDataTable = () => {
                   {recordsAfterPagingAndSorting().map((item, index) => (
                     //F => f ~ f => F
                     <TableRow key={index}>
+                      <TableCell>
+                        {/* <Button
+                          variant="outlined"
+                          onClick={() => {
+                            updateResumeHandler(item);
+                          }}
+                          className={classes.updateBtn}
+                        >
+                          <EditOutlinedIcon fontSize="small" />
+                        </Button> */}
+                        <IconButton
+                          className={classes.updateBtn}
+                          onClick={() => {
+                            updateResumeHandler(item);
+                          }}
+                        >
+                          <EditOutlinedIcon fontSize="small" />
+                        </IconButton>
+                      </TableCell>
                       <TableCell>{item.FirstName}</TableCell>
                       <TableCell>{item.LastName}</TableCell>
                       <TableCell>{item.Email}</TableCell>
                       <TableCell>{item.MobileNumber}</TableCell>
-                      <TableCell>{item.Gender}</TableCell>
+                      <TableCell>{ENUM_GENDER[item.Gender]}</TableCell>
                       <TableCell>{item.Skills}</TableCell>
                       <TableCell>{item.Experience}</TableCell>
                       <TableCell>{item.CurrentCTC}</TableCell>

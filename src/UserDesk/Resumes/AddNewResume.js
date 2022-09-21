@@ -8,6 +8,7 @@ import {
   InputAdornment,
   TextField,
 } from "@mui/material";
+import { makeStyles } from "@material-ui/styles";
 import { Form, useForm } from "../../components/useForm";
 import ButtonControl from "../../components/form-controls/ButtonControl";
 import SelectControl from "../../components/form-controls/SelectControl";
@@ -29,37 +30,47 @@ import FileViewerComp from "../../components/FileViewerComp";
 import ResumeFileViewer from "../../components/ResumeFileViewer";
 import WebViewer from "../../components/WebViewer";
 import WebViewers from "../../components/WebViewer";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+
+const useStyles = makeStyles(() => ({
+  btnControls: {
+    height: "50px",
+    top: "15px",
+    left: "10px !important",
+  },
+}));
 
 function AddNewResume() {
+  const classes = useStyles();
   const [skills, setSkills] = useState([{}]);
   const [genders, setGenders] = useState([{}]);
   const [helperText, setHelperText] = useState("");
+  const [tempVal, setTempVal] = useState([{}]);
+  const [isDuplicate, setIsDuplicate] = useState(false);
   // const [selectedSkills, setSelectedSkills] = useState();
   const [resumeFile, setResumeFile] = useState(null);
   const [resumeFileData, setResumeFileData] = useState(null);
   const initialValues = {
-    firstName: "",
-    lastName: "",
-    email: "",
-    mobileNumber: "",
-    gender: "",
-    experience: "",
-    currentCTC: "",
-    expectedCTC: "",
-    skills: "",
-    resumeFile: "",
-    skillsCount: 0,
+    FirstName: "",
+    LastName: "",
+    Email: "",
+    MobileNumber: "",
+    Gender: "",
+    Experience: "",
+    CurrentCTC: "",
+    ExpectedCTC: "",
+    Skills: "",
+    ResumeFile: "",
+    SkillsCount: 0,
   };
   // const genderItems = [
   //   { id: "1", title: "Male" },
   //   { id: "2", title: "Female" },
   // ];
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    skillDataByApi();
-    skillName();
-    getGenderByApi();
-  }, []);
+  const recordForEdit = location.state;
 
   const skillDataByApi = async () => {
     await axios.get("Skills").then((res) => {
@@ -79,53 +90,53 @@ function AddNewResume() {
     // let temp = { ...errors };
     let temp = {};
 
-    if ("firstName" in fieldValues)
-      temp.firstName = /^[a-zA-Z ,.'-]+$/.test(fieldValues.firstName)
+    if ("FirstName" in fieldValues)
+      temp.FirstName = /^[a-zA-Z ,.'-]+$/.test(fieldValues.FirstName)
         ? ""
         : "Required FirstName ";
 
-    if ("lastName" in fieldValues)
-      temp.lastName = /^[a-zA-Z ,.'-]+$/.test(fieldValues.lastName)
+    if ("LastName" in fieldValues)
+      temp.LastName = /^[a-zA-Z ,.'-]+$/.test(fieldValues.LastName)
         ? ""
         : "Required LastName";
 
-    if ("experience" in fieldValues) {
+    if ("Experience" in fieldValues) {
       // /^([0-9].?)*$/.
-      temp.experience = /^[+-]?([0-9]*[.])?[0-9]+$/.test(fieldValues.experience)
+      temp.Experience = /^[+-]?([0-9]*[.])?[0-9]+$/.test(fieldValues.Experience)
         ? ""
         : "Required Experience";
     }
 
-    if ("expectedCTC" in fieldValues) {
-      temp.expectedCTC = /^[+-]?([0-9]*[.])?[0-9]+$/.test(
-        fieldValues.expectedCTC
+    if ("ExpectedCTC" in fieldValues) {
+      temp.ExpectedCTC = /^[+-]?([0-9]*[.])?[0-9]+$/.test(
+        fieldValues.ExpectedCTC
       )
         ? ""
         : "Required CTC";
     }
 
-    if ("currentCTC" in fieldValues) {
-      temp.currentCTC = /^[+-]?([0-9]*[.])?[0-9]+$/.test(fieldValues.currentCTC)
+    if ("CurrentCTC" in fieldValues) {
+      temp.CurrentCTC = /^[+-]?([0-9]*[.])?[0-9]+$/.test(fieldValues.CurrentCTC)
         ? ""
         : "Current CTC";
     }
 
-    if ("skills" in fieldValues) {
-      temp.skills = fieldValues.skills ? "" : "Required Skills";
+    if ("Skills" in fieldValues) {
+      temp.Skills = fieldValues.Skills ? "" : "Required Skills";
     }
 
-    if ("email" in fieldValues) {
-      //(temp.email = /$^|.+@.+..+/.test(fieldValues.email)
-      (temp.email = /^[a-z0-9](\.?[a-z0-9]){5,}@g(oogle)?mail\.com$/i.test(
-        fieldValues.email
+    if ("Email" in fieldValues) {
+      //(temp.Email = /$^|.+@.+..+/.test(fieldValues.Email)
+      (temp.Email = /^[a-z0-9](\.?[a-z0-9]){5,}@g(oogle)?mail\.com$/i.test(
+        fieldValues.Email
       )
         ? ""
         : "Email is not valid") ||
-        (temp.email = fieldValues.email ? "" : " Required Email ");
+        (temp.Email = fieldValues.Email ? "" : " Required Email ");
     }
-    if ("mobileNumber" in fieldValues)
+    if ("MobileNumber" in fieldValues)
       // temp.mobile = fieldValues.mobile
-      temp.mobileNumber = /^([7-9]{1}[0-9]{9})$/.test(fieldValues.mobileNumber)
+      temp.MobileNumber = /^([7-9]{1}[0-9]{9})$/.test(fieldValues.MobileNumber)
         ? ""
         : "Required Number";
     setErrors({
@@ -148,6 +159,20 @@ function AddNewResume() {
     resetForm,
   } = useForm(initialValues, true, validate, setResumeFileData, setHelperText);
 
+  useEffect(() => {
+    skillDataByApi();
+    skillName();
+    getGenderByApi();
+    if (recordForEdit !== null) {
+      setValues({
+        ...recordForEdit,
+      });
+    }
+  }, []);
+  // console.log(recordForEdit.Skills);
+  // const defaultSkills = recordForEdit.Skills;
+
+  // console.log(recordForEdit);
   // const addValue = {
   //   FullName: "xyz",
   //   Email: "pxys@j.com",
@@ -159,13 +184,12 @@ function AddNewResume() {
   //   Skills: "ASP.net,C#,SQL",
   //   ResumeFile: "http://localhost:62075/ResumeFiles/download.pdf",
   // };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (values.gender === "1") {
+    if (values.Gender === "1") {
       setHelperText("");
       setErrors(false);
-    } else if (values.gender === "2") {
+    } else if (values.Gender === "2") {
       setHelperText("");
       setErrors(false);
     } else {
@@ -173,15 +197,40 @@ function AddNewResume() {
       setErrors(true);
     }
     if (validate()) {
-      axios.post("Resumes", values).then((res) => {
-        setValues(res.data);
-        console.log(res);
-      });
-      window.location.href = "/resume-data";
+      if (recordForEdit !== null) {
+        const id = recordForEdit.Candidate_Id;
+        debugger;
+        await axios.put(`Resumes/${id}`, values).then((res) => {
+          console.log(res.data);
+        });
+      } else {
+        await axios.post("Resumes/CheckDuplicate", values).then((res) => {
+          console.log(res);
+          if (res.data.length !== 0) {
+            setIsDuplicate(true);
+            // setValues(res.data);
 
-      resetForm();
+            // navigate("/resume-data", { state: data });
+            setTempVal(res.data);
+          } else {
+            setIsDuplicate(false);
+            navigate("/resume-data");
+            toast.done("New Record Added");
+          }
+        });
+      }
+      // if (tempVal.length == 0) {
+      //   await axios.post("Resumes", values).then((res) => {
+      //     setValues(res.data);
+      //     console.log(res);
+      //   });
+      // }
 
-      console.log(values);
+      // window.location.href = "/resume-data";
+
+      // resetForm();
+
+      // console.log(values);
     }
   };
 
@@ -191,8 +240,6 @@ function AddNewResume() {
 
   // const genderTitle = genders.map((gender) => gender.Gender_Title);
   // // genders.map((gender) => gender.title);
-
-  console.log(values);
 
   // const handleChange = (e) => {
   //   setValues({
@@ -220,7 +267,12 @@ function AddNewResume() {
         ...values,
         [e.target.name]: e.target.value,
       });
-
+      // if (recordForEdit.ResumeFile !== null) {
+      //   setResumeFile(recordForEdit.ResumeFile);
+      // } else {
+      //   setResumeFile(file);
+      // }
+      // setResumeFile(recordForEdit.ResumeFile);
       setResumeFile(file);
       const formData = new FormData();
       formData.append("resumeFile", file);
@@ -232,7 +284,7 @@ function AddNewResume() {
       toast.error("invalid file format!");
     }
   };
-
+  // console.log(recordForEdit.ResumeFile);
   const uploadFileHandler = () => {
     axios
       .post("Resumes/SaveResumeFile", resumeFileData)
@@ -246,7 +298,7 @@ function AddNewResume() {
   };
 
   // const handleSkillBlur = () => {
-  //   window.alert(values.mobileNumber + values.skills);
+  //   window.alert(values.MobileNumber + values.skills);
   // };
 
   // const deleteFileHandler = () => {
@@ -270,18 +322,18 @@ function AddNewResume() {
     console.log(selectedValue);
     setValues({
       ...values,
-      skills: val.map((value) => value.Skill_Id).toString(),
-      skillsCount: val.map((value) => value.Skill_Name).length,
+      Skills: val.map((value) => value.Skill_Id).toString(),
+      SkillsCount: val.map((value) => value.Skill_Name).length,
     });
     setErrors(false);
     // const postSkillData = {
-    //   MobileNumber: values.mobileNumber,
+    //   MobileNumber: values.MobileNumber,
     //   Skills: selectedValue,
     // };
 
     // axios
     //   .post("Resumes/saveSkillnMobile", {
-    //     MobileNumber: values.mobileNumber,
+    //     MobileNumber: values.MobileNumber,
     //     Skills: selectedValue,
     //   })
     //   .then((res) => {
@@ -297,8 +349,6 @@ function AddNewResume() {
     setErrors(false);
   };
 
-  // console.log(values);
-
   // console.log(values.skills);
 
   return (
@@ -306,9 +356,13 @@ function AddNewResume() {
       <div className="glass">
         <Sidebar className="sidebar" />
         <div className="dashboard-content">
-          {/* <div>
-            <Navbar />
-          </div> */}
+          <div>
+            {recordForEdit == null ? (
+              <Navbar navHeader="Add Resume" />
+            ) : (
+              <Navbar navHeader="Update Resume" />
+            )}
+          </div>
           <div style={{ overflow: "auto" }}>
             <Form
               onSubmit={handleSubmit}
@@ -320,31 +374,31 @@ function AddNewResume() {
                     <Grid item xs={6}>
                       <InputControl
                         label="First Name"
-                        name="firstName"
+                        name="FirstName"
                         size="small"
-                        value={values.firstName}
-                        error={errors.firstName}
+                        value={values.FirstName || ""}
+                        error={errors.FirstName}
                         onChange={handleInputChange}
                       />
                     </Grid>
                     <Grid item xs={6}>
                       <InputControl
                         label="Last Name"
-                        name="lastName"
+                        name="LastName"
                         size="small"
-                        value={values.lastName}
-                        error={errors.lastName}
+                        value={values.LastName || ""}
+                        error={errors.LastName}
                         onChange={handleInputChange}
                       />
                     </Grid>
                   </Grid>
                   <InputControl
-                    name="email"
+                    name="Email"
                     label="Email"
                     size="small"
                     style={{ width: "95%" }}
-                    error={errors.email}
-                    value={values.email || ""}
+                    error={errors.Email}
+                    value={values.Email || ""}
                     onChange={handleInputChange}
                   />
 
@@ -359,21 +413,21 @@ function AddNewResume() {
                   <Grid container>
                     <Grid item xs={6}>
                       <InputControl
-                        name="mobileNumber"
+                        name="MobileNumber"
                         label="Mobile Number"
                         size="small"
-                        error={errors.mobileNumber}
-                        value={values.mobileNumber || ""}
+                        error={errors.MobileNumber}
+                        value={values.MobileNumber || ""}
                         onChange={handleInputChange}
                       />
                     </Grid>
                     <Grid item xs={6}>
                       <InputControl
-                        name="experience"
+                        name="Experience"
                         label="Experience"
-                        error={errors.experience}
+                        error={errors.Experience}
                         size="small"
-                        value={values.experience || ""}
+                        value={values.Experience || ""}
                         onChange={handleInputChange}
                         // options={getExperienceData}
                       />
@@ -383,21 +437,21 @@ function AddNewResume() {
                   <Grid container>
                     <Grid item xs={6}>
                       <InputControl
-                        name="currentCTC"
+                        name="CurrentCTC"
                         label="Current CTC"
                         size="small"
-                        error={errors.currentCTC}
-                        value={values.currentCTC || ""}
+                        error={errors.CurrentCTC}
+                        value={values.CurrentCTC || ""}
                         onChange={handleInputChange}
                       />
                     </Grid>
                     <Grid item xs={6}>
                       <InputControl
-                        name="expectedCTC"
+                        name="ExpectedCTC"
                         label="Expected CTC"
                         size="small"
-                        error={errors.expectedCTC}
-                        value={values.expectedCTC || ""}
+                        error={errors.ExpectedCTC}
+                        value={values.ExpectedCTC || ""}
                         onChange={handleInputChange}
                       />
                     </Grid>
@@ -406,11 +460,11 @@ function AddNewResume() {
                     <Grid item xs={5}>
                       <RadioGroupControl
                         default
-                        name="gender"
+                        name="Gender"
                         row
                         label="Gender"
-                        value={values.gender || ""}
-                        helperText={helperText}
+                        value={values.Gender || ""}
+                        helpertext={helperText}
                         onChange={handleRadioChange}
                         items={genders}
                       />
@@ -418,6 +472,7 @@ function AddNewResume() {
                   </Grid>
                   <Autocomplete
                     multiple
+                    // defaultValue={[defaultSkills || ""]}
                     disableCloseOnSelect
                     // onBlur={handleSkillBlur}
                     // value={values.skills}
@@ -446,11 +501,22 @@ function AddNewResume() {
                         {...params}
                         label="Skills"
                         placeholder="Languages"
-                        value={values.skills || ""}
-                        error={errors.skills}
+                        value={values.Skills || ""}
+                        error={errors.Skills}
                       />
                     )}
                   />
+                  <br />
+                  {isDuplicate ? (
+                    <p>
+                      Record Already Exist &nbsp;
+                      <Link to="/resume-data" state={tempVal}>
+                        <u>View Records</u>
+                      </Link>
+                    </p>
+                  ) : (
+                    ""
+                  )}
                 </Grid>
                 <Grid item xs={1}></Grid>
                 <Grid item xs={4}>
@@ -466,6 +532,7 @@ function AddNewResume() {
                     }}
                   >
                     {/* <WebViewers /> */}
+
                     <PdfViewer scale={2.2} width={300} pdf={resumeFile} />
                     {/* <FileViewerComp file={MyResume} /> */}
                     {/* <ResumeFileViewer /> */}
@@ -474,11 +541,18 @@ function AddNewResume() {
                       documents={docs}
                     /> */}
                   </div>
-                  <div style={{ width: "150%", display: "flex" }}>
+                  <div
+                    style={{
+                      width: "150%",
+                      display: "flex",
+                      paddingBottom: "25px",
+                      marginLeft: "-17px",
+                    }}
+                  >
                     <InputControl
                       type="file"
                       label=" "
-                      name="resumeFile"
+                      name="ResumeFile"
                       size="small"
                       value={values.resumeFile || ""}
                       onChange={handleFileChange}
@@ -505,8 +579,22 @@ function AddNewResume() {
                         ),
                       }}
                     />
+                    <ButtonControl
+                      className={classes.btnControls}
+                      // classses={{ root: classes.root, label: classes.label }}
+                      text="Submit"
+                      type="submit"
+                    />
+                    &nbsp;&nbsp;
+                    <ButtonControl
+                      // classes={{ root: classes.root, label: classes.label }}
+                      className={classes.btnControls}
+                      text="Reset"
+                      color="error"
+                      onClick={resetForm}
+                    />
                   </div>
-                  <div
+                  {/* <div
                     style={{
                       width: "250px",
                       display: "flex",
@@ -525,7 +613,7 @@ function AddNewResume() {
                       color="error"
                       onClick={resetForm}
                     />
-                  </div>
+                  </div> */}
                 </Grid>
               </Grid>
             </Form>

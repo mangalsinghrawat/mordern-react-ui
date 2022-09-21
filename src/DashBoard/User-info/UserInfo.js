@@ -29,7 +29,7 @@ const UserInfo = () => {
           <Sidebar className="sidebar" />
           <div className="dashboard-content">
             <div>
-              <Navbar />
+              <Navbar navHeader="Users Information" />
             </div>
             <div className="userdata">
               <Employees />

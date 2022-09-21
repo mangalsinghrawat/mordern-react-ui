@@ -16,7 +16,7 @@ function Dashboard() {
         <Sidebar className="sidebar" />
         <div className="dashboard-content">
           <div>
-            <Navbar className="navbar" />
+            <Navbar navHeader="Dashboard" className="navbar" />
           </div>
           <div className="divOne">
             <StatsContainer />

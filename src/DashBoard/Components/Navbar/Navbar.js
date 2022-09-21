@@ -5,6 +5,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { userData } from "../../../utils/sessionData";
+import { ENUM_USERTYPE } from "../../../utils/Enums";
 
 const Wrapper = styled.nav`
   height: 4rem;
@@ -111,8 +112,9 @@ const Wrapper = styled.nav`
   }
 `;
 
-const Navbar = () => {
+const Navbar = (props) => {
   const [showLogout, setShowLogout] = useState(false);
+  const { navHeader } = props;
   // const [sidebar, setSidebar] = useState(true);
   // const [state, setState] = useState(true);
 
@@ -130,7 +132,8 @@ const Navbar = () => {
   };
 
   const UserNameInitial = userData.FullName.split(" ")[0];
-  const UserName = UserNameInitial + " (" + userData.UserType + ")";
+  const UserName =
+    UserNameInitial + " (" + ENUM_USERTYPE[userData.UserType] + ")";
 
   // console.log(UserType);
 
@@ -143,7 +146,7 @@ const Navbar = () => {
         <div>
           <Link to="/dashboard">
             <h3 className="logo-text">
-              BitByBit
+              {/* BitByBit
               <span
                 style={{
                   fontSize: "17px",
@@ -152,7 +155,8 @@ const Navbar = () => {
                 }}
               >
                 Solutions
-              </span>
+              </span> */}
+              {navHeader}
             </h3>
           </Link>
         </div>
